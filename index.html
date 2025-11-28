@@ -323,7 +323,7 @@
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(3, 250px);
+            grid-template-rows: repeat(3, 300px);
             gap: 1.5rem;
         }
 
@@ -335,6 +335,9 @@
             overflow: hidden;
             border: 1px solid #1a1a1a;
             transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
         .bento-item:hover {
@@ -398,6 +401,7 @@
             font-size: 0.7rem;
             font-family: monospace;
         }
+ 
 
         /*orbiting skills list*/
         .skills-orbital {
@@ -742,8 +746,8 @@
                 where I continue to learn, build, and explore new ideas. I primarily work in Python, but I’m always 
                 excited to experiment with new tools, languages, and frameworks that push my skills forward.</p>
 
-                <p>When I'm not coding, you'll find me experimenting with new technologies, contributing to open-source, 
-                mentoring the next generation of developers, or diving into the latest developments in AI.</p>
+                <p>Outside of coding, I enjoy testing out new tech, building small projects for fun,
+                     helping other developers learn, and following the latest AI trends.</p>
                 <div class="about-stats">
                     <div class="stat">
                         <div class="stat-number">3</div>
@@ -768,51 +772,55 @@
             <h2 class="section-title">Featured Projects</h2>
         </div>
         <div class="bento-grid">
-            <div class="bento-item">
-                <div class="bento-icon">🤟</div>
-                <div class="bento-title">ASL Translator</div>
-                <div class="bento-desc">A revolutionary translator that
+            <a href = "https://github.com/ZackDoll/SignLanguageCV" target = "_blank" class="bento-item" rel = "noopener noreferrer">
+                    <div class="bento-icon">🤟</div>
+                    <div class="bento-title">ASL Translator</div>
+                    <div class="bento-desc">A revolutionary translator that
                      translates ASL derived from your webcam to English
                      text using machine learning</div>
-                <div class = 'bento-desc'>Created by combining the
+                    <div class = 'bento-desc'>Created by combining the
                      ASL Citizen dataset with the MSASL dataset</div>
-                <div class="bento-tags">
-                    <span class="bento-tag">Python</span>
-                    <span class="bento-tag">OpenCV2</span>
-                    <span class="bento-tag">LSTM/Dense</span>
-                    <span class="bento-tag">Kaggle</span>
+                    <div class="bento-tags">
+                        <span class="bento-tag">Python</span>
+                        <span class="bento-tag">OpenCV2</span>
+                        <span class="bento-tag">LSTM/Dense</span>
+                        <span class="bento-tag">Kaggle</span>
+                    </div>
+            </a>
+            <a href = "https://github.com/ZackDoll/PitchingStats" target = "_blank" class="bento-item" rel = "noopener noreferrer">
+
+                    <div class="bento-icon">📊</div>
+                    <div class="bento-title">MLB Pitch Predictor</div>
+                    <div class="bento-desc">Machine learning algorithm that predicts future pitches based on current conditions</div>
+                    <div class="bento-desc">Achieved 85% accuracy using historical MLB data from StatCast</div>
+                    <div class="bento-desc">Data from over 12 million pitches combined into one algorithm</div>
+                    <div class="bento-tags">
+                        <span class="bento-tag">Python</span>
+                        <span class="bento-tag">Sci-kit Learn</span>
+                        <span class="bento-tag">Node.js</span>
+                        <span class="bento-tag">React</span>
                 </div>
-            </div>
-            <div class="bento-item">
-                <div class="bento-icon">📊</div>
-                <div class="bento-title">MLB Pitch Predictor</div>
-                <div class="bento-desc">Machine learning algorithm that predicts future pitches based on current conditions</div>
-                <div class="bento-tags">
-                    <span class="bento-tag">Python</span>
-                    <span class="bento-tag">Sci-kit Learn</span>
-                    <span class="bento-tag">Node.js</span>
-                    <span class="bento-tag">React</span>
-                </div>
-            </div>
-            <div class="bento-item">
-                <div class="bento-icon">🤖</div>
-                <div class="bento-title">Forum Patch Note Scraper</div>
-                <div class="bento-desc">Discord bot that summarize forum posts on release using ChatGPT and sends them to subscribers</div>
-                <div class="bento-tags">
-                    <span class="bento-tag">Python</span>
-                    <span class="bento-tag">ChatGPT</span>
-                </div>
-            </div>
-            <div class="bento-item">
-                <div class="bento-icon">♛</div>
-                <div class="bento-title">ChessGPT</div>
-                <div class="bento-desc">AI-powered chess tutor with a custom LLM that provides real-time move reccomendations and human-like analysis</div>
-                <div class="bento-tags">
-                    <span class="bento-tag">Python</span>
-                    <span class="bento-tag">LLM</span>
-                    <span class="bento-tag">GRPO</span>
-                </div>
-            </div>
+            </a>
+            <a href = "https://github.com/ZackDoll/Discord-Bots/blob/main/Forum%20Summarizer%20Discord%20Bot" target = "_blank" class="bento-item" rel = "noopener noreferrer">
+                    <div class="bento-icon">🤖</div>
+                    <div class="bento-title">Forum Patch Note Scraper</div>
+                    <div class="bento-desc">Discord bot that summarize forum posts on release using ChatGPT and sends them to subscribers</div>
+                    <div class="bento-tags">
+                        <span class="bento-tag">Python</span>
+                        <span class="bento-tag">ChatGPT</span>
+                    </div>
+
+            </a>
+            <a href = "https://github.com/floatingtrees/Chess-GPT" target = "_blank" class="bento-item" rel = "noopener noreferrer">
+                    <div class="bento-icon">♛</div>
+                    <div class="bento-title">ChessGPT</div>
+                    <div class="bento-desc">AI-powered chess tutor with a custom LLM that provides real-time move reccomendations and human-like analysis</div>
+                    <div class="bento-tags">
+                        <span class="bento-tag">Python</span>
+                        <span class="bento-tag">LLM</span>
+                        <span class="bento-tag">GRPO</span>
+                    </div>
+            </a>
         </div>
     </section>
 
@@ -976,7 +984,7 @@
         animate();
 
         // Typewriter Effect
-        const roles = ['Web Developer', 'AI Engineer', 'UI/UX Designer', 'Problem Solver'];
+        const roles = ['Web Developer', 'AI/ML Engineer', 'UI/UX Designer', 'Problem Solver'];
         let roleIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
