@@ -32,7 +32,7 @@
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
-            z-index: 9999;
+            z-index: 99999;
             transition: transform 0.1s, background 0.3s;
             mix-blend-mode: difference;
         }
@@ -44,7 +44,7 @@
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
-            z-index: 9999;
+            z-index: 99999;
         }
 
         .cursor.hover {
@@ -338,6 +338,7 @@
             text-decoration: none;
             color: inherit;
             display: block;
+            cursor: none;
         }
 
         .bento-item:hover {
@@ -641,6 +642,269 @@
             font-size: 0.8rem;
         }
 
+        /*project detail view styles*/
+        #project-detail {
+            display: none;
+            padding: 6rem 10%;
+            min-height: 100vh;
+        }
+
+        #project-detail.active {
+            display: block;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            border: 1px solid #00ffaa;
+            color: #00ffaa;
+            padding: 0.8rem 1.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: none;
+            transition: all 0.3s;
+            margin-bottom: 3rem;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: #00ffaa;
+            color: #000;
+        }
+
+        .project-detail-header {
+            margin-bottom: 3rem;
+        }
+
+        .project-detail-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #00ffaa, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-detail-subtitle {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            border: 1px solid #333;
+            color: #999;
+            padding: 0.6rem 1.2rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .project-link:hover {
+            border-color: #00ffaa;
+            color: #00ffaa;
+        }
+
+        .project-detail-content {
+            max-width: 900px;
+        }
+
+        .project-detail-section {
+            margin-bottom: 3rem;
+        }
+
+        .project-detail-section h3 {
+            font-size: 1.8rem;
+            color: #00ffaa;
+            margin-bottom: 1rem;
+        }
+
+        .project-detail-section p {
+            font-size: 1.1rem;
+            color: #999;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .project-detail-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .project-detail-section li {
+            font-size: 1rem;
+            color: #999;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .project-detail-section li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #00ffaa;
+        }
+
+        .project-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .image-lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 10000;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.3s ease;
+        }
+
+        .image-lightbox.active {
+        display: flex;
+        }
+
+        @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+        }
+
+        .lightbox-content {
+        max-width: 90%;
+        max-height: 90%;
+        position: relative;
+        }
+
+        .lightbox-content img {
+        max-width: 100%;
+        max-height: 90vh;
+        object-fit: contain;
+        border: 2px solid #00ffaa;
+        border-radius: 10px;
+        box-shadow: 0 0 50px rgba(0, 255, 170, 0.3);
+        }
+
+        .lightbox-close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        background: transparent;
+        border: 2px solid #00ffaa;
+        color: #00ffaa;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+        z-index: 10001;
+        }
+
+        .lightbox-close:hover {
+        background: #00ffaa;
+        color: #000;
+        transform: rotate(90deg);
+        }
+
+        .lightbox-caption {
+        text-align: center;
+        color: #00ffaa;
+        font-family: monospace;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        }
+
+        .project-image {
+        width: 100%;
+        height: auto;
+        min-height: 300px;
+        background: #111;
+        border: 1px solid #222;
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+        font-family: monospace;
+        cursor: none;
+        transition: transform 0.3s;
+        }
+
+        .project-image:hover {
+        transform: scale(1.02);
+        }
+
+        .project-image img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        cursor: none;
+        }
+
+
+
+        .tech-stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-item {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #00ffaa;
+            transition: all 0.3s;
+        }
+
+        .tech-item:hover {
+            border-color: #00ffaa;
+            transform: translateY(-3px);
+        }
+
+        /*hide main content when viewing project*/
+        body.viewing-project .hero,
+        body.viewing-project #about,
+        body.viewing-project #projects,
+        body.viewing-project #skills,
+        body.viewing-project #contact,
+        body.viewing-project footer {
+            display: none;
+        }
+
         /*responsive*/
         @media (max-width: 1024px) {
             nav {
@@ -655,6 +919,10 @@
             .bento-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
             .bento-item:nth-child(2) { grid-column: span 2; }
             .bento-item:nth-child(5) { grid-column: span 2; }
+
+            .project-detail-title {
+                font-size: 2.5rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -693,6 +961,18 @@
             
             .skills-orbital {
                 transform: scale(0.6);
+            }
+
+            #project-detail {
+                padding: 4rem 5%;
+            }
+
+            .project-detail-title {
+                font-size: 2rem;
+            }
+
+            .project-detail-subtitle {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -743,7 +1023,7 @@
                 and build smarter systems.</p>
 
                 <p>My journey in tech started with my curiosity and love for puzzles and has grown through my experiences as a student at UCLA, 
-                where I continue to learn, build, and explore new ideas. I primarily work in Python, but I’m always 
+                where I continue to learn, build, and explore new ideas. I primarily work in Python, but I'm always 
                 excited to experiment with new tools, languages, and frameworks that push my skills forward.</p>
 
                 <p>Outside of coding, I enjoy testing out new tech, building small projects for fun,
@@ -772,7 +1052,7 @@
             <h2 class="section-title">Featured Projects</h2>
         </div>
         <div class="bento-grid">
-            <a href = "https://github.com/ZackDoll/SignLanguageCV" target = "_blank" class="bento-item" rel = "noopener noreferrer">
+            <div class="bento-item" data-project="asl" onclick="showProject('asl')">
                     <div class="bento-icon">🤟</div>
                     <div class="bento-title">ASL Translator</div>
                     <div class="bento-desc">A revolutionary translator that
@@ -786,9 +1066,9 @@
                         <span class="bento-tag">LSTM/Dense</span>
                         <span class="bento-tag">Kaggle</span>
                     </div>
-            </a>
-            <a href = "https://pitch-predictor.onrender.com" target = "_blank" class="bento-item" rel = "noopener noreferrer">
-
+            </div>
+            <!--data-project and onclick-->
+            <div class="bento-item" data-project="mlb" onclick="showProject('mlb')">
                     <div class="bento-icon">📊</div>
                     <div class="bento-title">MLB Pitch Predictor</div>
                     <div class="bento-desc">Machine learning algorithm that predicts future pitches based on current conditions</div>
@@ -800,18 +1080,20 @@
                         <span class="bento-tag">Node.js</span>
                         <span class="bento-tag">React</span>
                 </div>
-            </a>
-            <a href = "https://github.com/ZackDoll/DollySkyblockBot" target = "_blank" class="bento-item" rel = "noopener noreferrer">
+            </div>
+
+            <div class="bento-item" data-project="scraper" onclick="showProject('scraper')">
                     <div class="bento-icon">🤖</div>
                     <div class="bento-title">Forum Patch Note Scraper</div>
                     <div class="bento-desc">Discord bot that summarize forum posts on release using ChatGPT and sends them to subscribers</div>
                     <div class="bento-tags">
                         <span class="bento-tag">Python</span>
                         <span class="bento-tag">ChatGPT</span>
+                        <span class="bento-tag">AWS</span>
                     </div>
+            </div>
 
-            </a>
-            <a href = "https://github.com/floatingtrees/Chess-GPT" target = "_blank" class="bento-item" rel = "noopener noreferrer">
+            <div class="bento-item" data-project="chess" onclick="showProject('chess')">
                     <div class="bento-icon">♛</div>
                     <div class="bento-title">ChessGPT</div>
                     <div class="bento-desc">AI-powered chess tutor with a custom LLM that provides real-time move reccomendations and human-like analysis</div>
@@ -820,7 +1102,7 @@
                         <span class="bento-tag">LLM</span>
                         <span class="bento-tag">GRPO</span>
                     </div>
-            </a>
+            </div>
         </div>
     </section>
 
@@ -877,7 +1159,7 @@
                     </div>
                     <div class="form-group">
                         <label>Message</label>
-                        <textarea name = 'message'required></textarea>
+                        <textarea name = 'message' required></textarea>
                     </div>
                     <button type="submit">Execute →</button>
                 </form>
@@ -889,11 +1171,352 @@
         </div>
     </section>
 
+    <!--project detail view section-->
+    <section id="project-detail">
+        <a href="#projects" class="back-button" onclick="hideProject()">← Back to Projects</a>
+        
+        <div class="project-detail-header">
+            <h1 class="project-detail-title" id="detail-title"></h1>
+            <p class="project-detail-subtitle" id="detail-subtitle"></p>
+            <div class="project-links" id="detail-links"></div>
+            <div class="bento-tags" id="detail-tags"></div>
+        </div>
+
+        <div class="project-detail-content" id="detail-content"></div>
+    </section>
+
     <footer>
         <p>© 2025 // Built with passion and too much free time</p>
     </footer>
 
+    <div class="image-lightbox" id="imageLightbox" onclick="closeLightbox(event)">
+        <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
     <script>
+        //project data object containing all project information
+        const projectData = {
+            asl: {
+                title: "ASL Translator",
+                subtitle: "Real-time American Sign Language translation using computer vision and deep learning",
+                tags: ["Python", "OpenCV2", "LSTM/Dense", "Kaggle", "MediaPipe", "TensorFlow"],
+                links: [
+                    { text: "View on GitHub", url: "https://github.com/ZackDoll/SignLanguageCV" }
+                ],
+                sections: [
+                    {
+                        title: "Overview",
+                        content: `This project combines computer vision and machine learning to translate American Sign Language 
+                        in real-time. Using your webcam, the system captures hand gestures and translates them into English text, 
+                        making communication more accessible.`
+                    },
+                    {
+                        title: "Technical Approach",
+                        content: `The system uses MediaPipe for hand tracking and keypoint extraction, followed by an LSTM neural 
+                        network for sequence classification. By combining the ASL Citizen dataset with the MSASL dataset, I achieved 
+                        significantly improved accuracy across a wide range of signs.`,
+                        bullets: [
+                            "MediaPipe Holistic for hand, pose, and face landmark detection",
+                            "LSTM architecture for temporal sequence modeling",
+                            "Custom data preprocessing pipeline combining multiple datasets",
+                            "Real-time inference optimization for smooth webcam interaction"
+                        ]
+                    },
+                    {
+                        title: "Key Features",
+                        bullets: [
+                            "Real-time gesture recognition from webcam feed",
+                            "Support for dynamic signs (signs with movement)",
+                            "High accuracy through multi-dataset training",
+                            "Lightweight model suitable for local execution"
+                        ]
+                    },
+                    {
+                        title: "Challenges & Solutions",
+                        content: `One major challenge was dealing with data sparsity in individual datasets. I solved this by 
+                        developing a pipeline to combine and normalize data from multiple sources, significantly increasing the 
+                        training set size and diversity.`
+                    }
+                ],
+                images: [
+
+                    {src: "ASLTest.gif", alt: "ASL Detection Demo" },
+                ]
+            },
+            mlb: {
+                title: "MLB Pitch Predictor",
+                subtitle: "Machine learning system predicting pitch types with 85% accuracy",
+                tags: ["Python", "Sci-kit Learn", "Node.js", "React", "StatCast API"],
+                links: [
+                    { text: "Live Demo", url: "https://pitch-predictor.onrender.com" },
+                    { text: "View on Github", url: "https://github.com/ZackDoll/PitchingStats" }
+                ],
+                sections: [
+                    {
+                        title: "Overview",
+                        content: `An advanced machine learning system that analyzes real-time game conditions to predict the next 
+                        pitch type in MLB games. Trained on over 12 million historical pitches from StatCast, achieving 85% accuracy.`
+                    },
+                    {
+                        title: "Data Pipeline",
+                        content: `The project required processing massive amounts of baseball data from StatCast's API. I built a 
+                        comprehensive data pipeline to clean, normalize, and feature-engineer the raw pitch data.`,
+                        bullets: [
+                            "Processed 12+ million pitches from StatCast database",
+                            "Feature engineering: count, score, base runners, batter tendencies",
+                            "Real-time API integration for live game predictions",
+                            "Efficient data storage and retrieval system"
+                        ]
+                    },
+                    {
+                        title: "Machine Learning Model",
+                        bullets: [
+                            "Random Forest classifier with custom hyperparameter tuning",
+                            "Feature importance analysis to understand pitcher behavior",
+                            "Context-aware predictions based on game situation",
+                            "85% accuracy on test set, validated across multiple seasons"
+                        ]
+                    },
+                    {
+                        title: "Web Application",
+                        content: `Built a full-stack web application with React frontend and Node.js backend, allowing users to 
+                        explore predictions and visualize pitcher tendencies in real-time.`
+                    }
+                ],
+                images: [
+                    {src: "sampleInput.png", alt: "Prediction Input Interface" },
+                    {src: "sampleGameState.png", alt: "Data Visualization on Website View" }
+                ]
+            },
+            scraper: {
+                title: "Forum Patch Note Scraper",
+                subtitle: "Automated Discord bot for game patch note monitoring and summarization",
+                tags: ["Python", "ChatGPT", "Discord.py", "BeautifulSoup", "ScrapingAnt", "AWS"],
+                links: [
+                    { text: "View on GitHub", url: "https://github.com/ZackDoll/DollySkyblockBot" },
+                    { text: "Discord Bot Invite", url: "https://top.gg/bot/1405336511003623455"}
+                ],
+                sections: [
+                    {
+                        title: "Overview",
+                        content: `A Discord bot that automatically monitors game forums for patch notes, uses ChatGPT to generate 
+                        concise summaries, and distributes them to subscribers. Keeps gaming communities informed without information 
+                        overload.`
+                    },
+                    {
+                        title: "Technical Implementation",
+                        bullets: [
+                            "Automated web scraping with ScrapingAnt to bypass rate limits",
+                            "ChatGPT integration for intelligent content summarization",
+                            "Discord.py for bot functionality and user management",
+                            "Scheduled checks for new forum posts",
+                            "Subscriber management system with custom notification preferences",
+                            "Deployed on AWS Ubuntu EC2 for 24/7 uptime"
+                        ]
+                    },
+                    {
+                        title: "Key Features",
+                        bullets: [
+                            "Real-time monitoring of multiple forum threads",
+                            "AI-powered summarization highlighting key changes",
+                            "User subscription system with role-based notifications",
+                            "Handles API rate limiting and error recovery",
+                            "Customizable summary length and detail level"
+                        ]
+                    },
+                    {
+                        title: "Evolution",
+                        content: `Initially used ScraperAPI and fake browser headers but migrated to ScrapingAnt for better reliability and rate limit handling. 
+                        Optimized ChatGPT prompts to produce more focused, relevant summaries that users actually want to read.
+                        Currently awaiting verificationt to be posted on discord bots lists.`
+                    }
+                ],
+                images: [
+                    {src: "exampleForumPost.png", alt: "Forum Post Example" },
+                    {src: "exampleMessage.png", alt: "Summary Example" }
+                ]
+            },
+            chess: {
+                title: "ChessGPT",
+                subtitle: "AI chess tutor with human-like analysis and move recommendations",
+                tags: ["Python", "LLM", "GRPO", "LoRA", "Chess.com API"],
+                links: [
+                    { text: "View on GitHub", url: "https://github.com/ZackDoll/ChessGPT" }
+                ],
+                sections: [
+                    {
+                        title: "Overview",
+                        content: `An AI-powered chess tutor that doesn't just suggest moves, but explains them like a human coach would. 
+                        Uses a custom-trained language model with reinforcement learning to provide natural, educational analysis.`
+                    },
+                    {
+                        title: "Model Architecture",
+                        bullets: [
+                            "Fine-tuned LLM using GRPO (Group Relative Policy Optimization)",
+                            "LoRA (Low-Rank Adaptation) for efficient fine-tuning",
+                            "Trained on chess commentary and analysis from top players",
+                            "Reinforcement learning from chess engine feedback",
+                            "Natural language generation for move explanations"
+                        ]
+                    },
+                    {
+                        title: "Features",
+                        bullets: [
+                            "Real-time move suggestions with detailed reasoning",
+                            "Multiple difficulty levels matching user skill",
+                            "Explains tactical patterns and strategic concepts",
+                            "Analyzes completed games with improvement suggestions",
+                            "Conversational interface for asking follow-up questions"
+                        ]
+                    },
+                    {
+                        title: "Training Process",
+                        content: `The model was trained using GRPO to optimize for both move quality and explanation clarity. 
+                        LoRA allowed efficient fine-tuning without requiring massive computational resources, making the project 
+                        feasible on consumer hardware.`
+                    }
+                ],
+                images: [
+                    {src:"BoardScanTest.png" , alt: "Board Scanner" },
+                    {src:"scannedBoard.png" , alt: "Board Scanned" },
+                    {src:"dataInput.png" , alt: "Training Data" }
+                ]
+            }
+        };
+
+        //function to show project detail view
+        function showProject(projectId) {
+            const project = projectData[projectId];
+            if (!project) return;
+
+            //populate project details
+            document.getElementById('detail-title').textContent = project.title;
+            document.getElementById('detail-subtitle').textContent = project.subtitle;
+
+            //populate links
+            const linksContainer = document.getElementById('detail-links');
+            linksContainer.innerHTML = project.links.map(link => 
+                `<a href="${link.url}" class="project-link" target="_blank" rel="noopener noreferrer">
+                    ${link.text} →
+                </a>`
+            ).join('');
+
+            //populate tags
+            const tagsContainer = document.getElementById('detail-tags');
+            tagsContainer.innerHTML = project.tags.map(tag => 
+                `<span class="bento-tag">${tag}</span>`
+            ).join('');
+
+            //populate content sections
+            const contentContainer = document.getElementById('detail-content');
+            contentContainer.innerHTML = project.sections.map(section => `
+                <div class="project-detail-section">
+                    <h3>${section.title}</h3>
+                    ${section.content ? `<p>${section.content}</p>` : ''}
+                    ${section.bullets ? `
+                        <ul>
+                            ${section.bullets.map(bullet => `<li>${bullet}</li>`).join('')}
+                        </ul>
+                    ` : ''}
+                </div>
+            `).join('');
+
+            //add images section if exists
+            if (project.images && project.images.length > 0) {
+                const imagesHtml = `
+                    <div class="project-detail-section">
+                        <h3>Gallery</h3>
+                        <div class="project-images">
+                            ${project.images.map(img => `
+                                <div class="project-image">
+                                    ${img.src ? `<img src="${img.src}" alt="${img.alt}">` : img.alt}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                contentContainer.innerHTML += imagesHtml;
+    
+
+                setTimeout(() => {
+                    document.querySelectorAll('.project-image img').forEach(img => {
+                        img.addEventListener('click', function() {
+                            openLightbox(this.src, this.alt);
+                        });
+                    });
+                }, 100);
+            }
+
+            //add tech stack visualization
+            const techStackHtml = `
+                <div class="project-detail-section">
+                    <h3>Technologies Used</h3>
+                    <div class="tech-stack-grid">
+                        ${project.tags.map(tag => `
+                            <div class="tech-item">${tag}</div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            contentContainer.innerHTML += techStackHtml;
+
+            //show project detail, hide main content
+            document.body.classList.add('viewing-project');
+            document.getElementById('project-detail').classList.add('active');
+            
+            //scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        //function to hide project detail view and return to main portfolio
+        function hideProject() {
+            document.body.classList.remove('viewing-project');
+            document.getElementById('project-detail').classList.remove('active');
+            
+            //scroll to projects section
+            setTimeout(() => {
+                document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+        function openLightbox(imageSrc, imageAlt) {
+            const lightbox = document.getElementById('imageLightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+    
+            lightboxImage.src = imageSrc;
+            lightboxImage.alt = imageAlt;
+            lightboxCaption.textContent = imageAlt;
+    
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; //prevent scrolling when lightbox is open
+        }
+
+        function closeLightbox(event) {
+            //close if clicking on the overlay (not the image itself)
+            if (event.target.id === 'imageLightbox' || event.target.classList.contains('lightbox-close')) {
+                const lightbox = document.getElementById('imageLightbox');
+                lightbox.classList.remove('active');
+                document.body.style.overflow = ''; //restore scrolling
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            //close lightbox with escape key
+            if (e.key === 'Escape') {
+                const lightbox = document.getElementById('imageLightbox');
+                if (lightbox.classList.contains('active')) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+
         //cursor
         const cursor = document.querySelector('.cursor');
         const cursorDot = document.querySelector('.cursor-dot');
@@ -983,7 +1606,7 @@
 
         animate();
 
-        // Typewriter Effect
+        //typewriter Effect
         const roles = ['Web Developer', 'AI/ML Engineer', 'UI/UX Designer', 'Problem Solver'];
         let roleIndex = 0;
         let charIndex = 0;
@@ -1017,23 +1640,28 @@
 
         typeWriter();
 
-        // smooth scrolling and active navigation
+        //smooth scrolling and active navigation
     const navLinks = document.querySelectorAll('nav a');
         
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                target.scrollIntoView({ behavior: 'smooth' });
-                
-                //update active state on click
-                navLinks.forEach(link => link.classList.remove('active'));
-                this.classList.add('active');
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    
+                    //update active state on click
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    this.classList.add('active');
+                }
             });
         });
 
         //update active state on scroll
         window.addEventListener('scroll', () => {
+            //don't update nav when viewing project
+            if (document.body.classList.contains('viewing-project')) return;
+
             let current = '';
             const sections = document.querySelectorAll('section');
             
@@ -1053,11 +1681,9 @@
             });
         });
 
-        // Form Handler
-//1. sign up at emailjs.com
-//2. add this to your html head
+
     emailjs.init("swEV8Ik2BLzd0I-an"); //from emailjs dashboard
-//3. replace your form handler
+
 function handleSubmit(e) {
     e.preventDefault();
     
@@ -1066,11 +1692,10 @@ function handleSubmit(e) {
     btn.textContent = 'Sending...';
     btn.disabled = true;
     
-    //replace these with your actual ids from emailjs
     emailjs.sendForm(
     'service_ik634s7',    //email service id
     'template_7pp3rp9',   //email template id
-    e.target              //the form element - FIXED
+    e.target              //the form element 
 ).then(() => {
         btn.textContent = 'Sent!';
         btn.style.borderColor = '#00ff00';
