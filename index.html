@@ -373,6 +373,14 @@
             font-size: 3rem;
             margin-bottom: 1rem;
         }
+        .bento-icon img {
+            width: 100%;
+            height: 100%;
+            max-height: 100px;
+            max-width: 100px;
+            object-fit: contain;
+        }
+
 
         .bento-title {
             font-size: 1.3rem;
@@ -844,7 +852,7 @@
         .project-image {
         width: 100%;
         height: auto;
-        min-height: 300px;
+        min-height: 150px;
         background: #111;
         border: 1px solid #222;
         border-radius: 10px;
@@ -1016,18 +1024,18 @@
                 <img src = 'ProfilePic.png' alt = 'Profile Picture' style="width:100%; height:100%; object-fit: cover; border-radius: 20px;">
             </div>
             <div class="about-text">
-                <p>I'm a passionate developer who transforms complex problems into elegant solutions. 
-                With a strong attention to detail and a focus on writing thoughtful, well-structured code, 
-                I create digital experiences that are both functional and beautiful. I especially enjoy 
-                working with AI technologies, using them to enhance creativity, automate processes, 
-                and build smarter systems.</p>
+                <p>I'm a CS student at UCLA who gets hooked by making things that make me feel like Tony Stark. Most recently, 
+                    I built an ASL translator that combines computer vision with LSTMs to recognize sign language in real-time from webcam footage.
+                     I merged two separate datasets to boost accuracy, and watching it actually work for the first time was pretty surreal.</p>
 
-                <p>My journey in tech started with my curiosity and love for puzzles and has grown through my experiences as a student at UCLA, 
-                where I continue to learn, build, and explore new ideas. I primarily work in Python, but I'm always 
-                excited to experiment with new tools, languages, and frameworks that push my skills forward.</p>
+                <p>My GitHub is basically a graveyard of random ideas I got excited about. I like trying new 
+                    things and picking up whatever seems interesting at the time, even if it's not particularly useful.
+                    Python's my main language, but I've also built full-stack web apps with React and Node.js, 
+                    like my MLB pitch predictor that analyzes 12+ million pitches to forecast what's coming next.</p>
 
-                <p>Outside of coding, I enjoy testing out new tech, building small projects for fun,
-                     helping other developers learn, and following the latest AI trends.</p>
+                <p>When I'm not working on course projects or debugging something at 2am, 
+                    I'm probably trying to figure out why my code worked yesterday but doesn't work today, 
+                    or convincing myself that "just one more feature" won't take that long.</p>
                 <div class="about-stats">
                     <div class="stat">
                         <div class="stat-number">3</div>
@@ -1038,8 +1046,8 @@
                         <div class="stat-label">Projects</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">∞</div>
-                        <div class="stat-label">Curiosity</div>
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Languages</div>
                     </div>
                 </div>
             </div>
@@ -1053,7 +1061,9 @@
         </div>
         <div class="bento-grid">
             <div class="bento-item" data-project="asl" onclick="showProject('asl')">
-                    <div class="bento-icon">🤟</div>
+                    <div class="bento-icon">
+                        <img src = "aslImage.png"  alt= "ASL Hands">
+                    </div>
                     <div class="bento-title">ASL Translator</div>
                     <div class="bento-desc">A revolutionary translator that
                      translates ASL derived from your webcam to English
@@ -1069,7 +1079,9 @@
             </div>
             <!--data-project and onclick-->
             <div class="bento-item" data-project="mlb" onclick="showProject('mlb')">
-                    <div class="bento-icon">📊</div>
+                    <div class="bento-icon">
+                        <img src= "MLBIcon.png"  alt= "MLB Logo">
+                    </div>
                     <div class="bento-title">MLB Pitch Predictor</div>
                     <div class="bento-desc">Machine learning algorithm that predicts future pitches based on current conditions</div>
                     <div class="bento-desc">Achieved 85% accuracy using historical MLB data from StatCast</div>
@@ -1083,7 +1095,10 @@
             </div>
 
             <div class="bento-item" data-project="scraper" onclick="showProject('scraper')">
-                    <div class="bento-icon">🤖</div>
+                    <div class="bento-icon">
+                        <img src= "discordLogo.png"  alt= "Discord Logo"
+                        style= "margin-left: -15px; margin-top: -35px;">
+                    </div>
                     <div class="bento-title">Forum Patch Note Scraper</div>
                     <div class="bento-desc">Discord bot that summarize forum posts on release using ChatGPT and sends them to subscribers</div>
                     <div class="bento-tags">
@@ -1094,7 +1109,7 @@
             </div>
 
             <div class="bento-item" data-project="chess" onclick="showProject('chess')">
-                    <div class="bento-icon">♛</div>
+                    <div class="bento-icon" style= "margin-left: -5px; margin-top: -25px;">♟</div>
                     <div class="bento-title">ChessGPT</div>
                     <div class="bento-desc">AI-powered chess tutor with a custom LLM that provides real-time move reccomendations and human-like analysis</div>
                     <div class="bento-tags">
@@ -1384,8 +1399,8 @@
                 ],
                 images: [
                     {src:"BoardScanTest.png" , alt: "Board Scanner" },
-                    {src:"scannedBoard.png" , alt: "Board Scanned" },
-                    {src:"dataInput.png" , alt: "Training Data" }
+                    {src:"dataInput.png" , alt: "Training Data" },
+                    {src:"scannedBoard.png" , alt: "Board Scanned" }
                 ]
             }
         };
