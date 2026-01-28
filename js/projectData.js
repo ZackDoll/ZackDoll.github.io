@@ -54,7 +54,7 @@ const projectData = {
         ],
         images: [
 
-            {src: "ASLTest.gif", alt: "ASL Detection Demo" },
+            {src: "images/ASLTest.gif", alt: "ASL Detection Demo" },
         ]
     },
     mlb: {
@@ -98,8 +98,8 @@ const projectData = {
             }
         ],
         images: [
-            {src: "sampleInput.png", alt: "Prediction Input Interface" },
-            {src: "sampleGameState.png", alt: "Data Visualization on Website View" }
+            {src: "images/sampleInput.png", alt: "Prediction Input Interface" },
+            {src: "images/sampleGameState.png", alt: "Data Visualization on Website View" }
         ]
     },
     scraper: {
@@ -146,8 +146,8 @@ const projectData = {
             }
         ],
         images: [
-            {src: "exampleForumPost.png", alt: "Forum Post Example" },
-            {src: "exampleMessage.png", alt: "Summary Example" }
+            {src: "images/exampleForumPost.png", alt: "Forum Post Example" },
+            {src: "images/exampleMessage.png", alt: "Summary Example" }
         ]
     },
     chess: {
@@ -191,9 +191,9 @@ const projectData = {
             }
         ],
         images: [
-            {src:"BoardScanTest.png" , alt: "Board Scanner" },
-            {src:"dataInput.png" , alt: "Training Data" },
-            {src:"scannedBoard.png" , alt: "Board Scanned" }
+            {src:"images/BoardScanTest.png" , alt: "Board Scanner" },
+            {src:"images/dataInput.png" , alt: "Training Data" },
+            {src:"images/scannedBoard.png" , alt: "Board Scanned" }
         ]
     }
 };
