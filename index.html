@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE3QS19H50"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
@@ -17,7 +18,982 @@
     <link rel = "icon" type = "image/png" href = "LogoImage.png">
     <link rel = "shortcut icon" type = "image/png" href = "LogoImage.png">
     <link rel = "icon" type = "image/x-icon" href = "favicon.ico">
-    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #050505;
+            overflow-x: hidden;
+        }
+
+        /*custom cursor*/
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00ffaa;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            transition: transform 0.1s, background 0.3s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ffaa;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+        }
+
+        .cursor.hover {
+            transform: scale(2);
+            background: rgba(0, 255, 170, 0.1);
+        }
+
+        /*particle canvas for background*/
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /*nav*/
+        nav {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: #555;
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            writing-mode: vertical-rl;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            width: 4px;
+            height: 4px;
+            background: #00ffaa;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #00ffaa;
+        }
+
+        nav a:hover::before, nav a.active::before {
+            opacity: 1;
+        }
+
+        /*hero section*/
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem 10%;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .greeting {
+            font-size: 1.2rem;
+            color: #00ffaa;
+            margin-bottom: 1rem;
+            font-family: monospace;
+        }
+
+        .glitch {
+            font-size: 5rem;
+            font-weight: 900;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: -5px;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            animation: glitch-1 2s infinite linear alternate-reverse;
+            color: #ff00ff;
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch-2 3s infinite linear alternate-reverse;
+            color: #00ffff;
+            z-index: -2;
+        }
+
+        @keyframes glitch-1 {
+            0%, 100% { clip-path: inset(0 0 95% 0); transform: translate(-2px); }
+            20% { clip-path: inset(20% 0 60% 0); transform: translate(2px); }
+            40% { clip-path: inset(40% 0 40% 0); transform: translate(-2px); }
+            60% { clip-path: inset(60% 0 20% 0); transform: translate(2px); }
+            80% { clip-path: inset(80% 0 5% 0); transform: translate(-2px); }
+        }
+
+        @keyframes glitch-2 {
+            0%, 100% { clip-path: inset(95% 0 0 0); transform: translate(2px); }
+            20% { clip-path: inset(60% 0 20% 0); transform: translate(-2px); }
+            40% { clip-path: inset(40% 0 40% 0); transform: translate(2px); }
+            60% { clip-path: inset(20% 0 60% 0); transform: translate(-2px); }
+            80% { clip-path: inset(5% 0 80% 0); transform: translate(2px); }
+        }
+
+        .typewriter {
+            font-size: 1.5rem;
+            color: #888;
+            margin-top: 2rem;
+            font-family: monospace;
+        }
+
+        .typewriter span {
+            border-right: 3px solid #00ffaa;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { border-color: #00ffaa; }
+            50% { border-color: transparent; }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 10%;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #555;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .scroll-line {
+            width: 60px;
+            height: 1px;
+            background: #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 100%;
+            background: #00ffaa;
+            animation: scroll-anim 2s infinite;
+        }
+
+        @keyframes scroll-anim {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+        }
+
+        /*sections*/
+        section {
+            padding: 6rem 10%;
+            min-height: 100vh;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .section-number {
+            font-size: 6rem;
+            font-weight: 900;
+            color: #111;
+            -webkit-text-stroke: 1px #333;
+            font-family: monospace;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00ffaa, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /*split layout of image and text*/
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid #00ffaa;
+            border-radius: 20px;
+            transform: translate(10px, 10px);
+            z-index: -1;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: #999;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #00ffaa;
+            font-family: monospace;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /*project grid*/
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 300px);
+            gap: 1.5rem;
+        }
+
+        .bento-item {
+            background: #0a0a0a;
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #1a1a1a;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            cursor: none;
+        }
+
+        .bento-item:hover {
+            border-color: #00ffaa;
+            transform: translateY(-5px);
+        }
+
+        .bento-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #00ffaa, #00aaff);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s;
+        }
+
+        .bento-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .bento-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+        .bento-item:nth-child(2) { grid-column: span 2; }
+        .bento-item:nth-child(3) { grid-column: span 1; }
+        .bento-item:nth-child(4) { grid-column: span 1; }
+        .bento-item:nth-child(5) { grid-column: span 2; }
+
+        .bento-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .bento-icon img {
+            width: 100%;
+            height: 100%;
+            max-height: 100px;
+            max-width: 100px;
+            object-fit: contain;
+        }
+
+
+        .bento-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .bento-desc {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .bento-tags {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .bento-tag {
+            background: #111;
+            color: #00ffaa;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-family: monospace;
+        }
+ 
+
+        /*orbiting skills list*/
+        .skills-orbital {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 1;
+            margin: 0 auto;
+        }
+
+        .orbital-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            background: #00ffaa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: #000;
+            z-index: 10;
+        }
+
+        .orbital-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 1px solid #222;
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+
+        .orbital-ring:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            margin: -150px 0 0 -150px;
+        }
+
+        .orbital-ring:nth-child(3) {
+            width: 450px;
+            height: 450px;
+            margin: -225px 0 0 -225px;
+            animation-duration: 30s;
+            animation-direction: reverse;
+        }
+
+        .orbital-ring:nth-child(4) {
+            width: 600px;
+            height: 600px;
+            margin: -300px 0 0 -300px;
+            animation-duration: 40s;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .skill-node {
+            position: absolute;
+            background: #111;
+            border: 1px solid #333;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .skill-node:hover {
+            background: #00ffaa;
+            color: #000;
+            border-color: #00ffaa;
+            transform: scale(1.2);
+        }
+
+        /* Contact - Terminal Style */
+        .terminal {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: #111;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f57; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #28ca41; }
+
+        .terminal-title {
+            color: #666;
+            font-size: 0.8rem;
+            margin-left: 1rem;
+            font-family: monospace;
+        }
+
+        .terminal-body {
+            padding: 2rem;
+            font-family: monospace;
+        }
+
+        .terminal-line {
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .terminal-line span {
+            color: #00ffaa;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            position: absolute;
+            top: -0.5rem;
+            left: 1rem;
+            background: #0a0a0a;
+            padding: 0 0.5rem;
+            font-size: 0.7rem;
+            color: #00ffaa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            background: transparent;
+            border: 1px solid #333;
+            border-radius: 5px;
+            color: #e0e0e0;
+            font-family: monospace;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #00ffaa;
+        }
+
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            background: transparent;
+            border: 1px solid #00ffaa;
+            color: #00ffaa;
+            padding: 1rem 2rem;
+            font-family: monospace;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: none;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #00ffaa;
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .contact-form button:hover {
+            color: #000;
+        }
+
+        .contact-form button:hover::before {
+            left: 0;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .social-link {
+            color: #555;
+            text-decoration: none;
+            font-family: monospace;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .social-link:hover {
+            color: #00ffaa;
+        }
+
+        /*footer*/
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: #333;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+
+        /*project detail view styles*/
+        #project-detail {
+            display: none;
+            padding: 6rem 10%;
+            min-height: 100vh;
+        }
+
+        #project-detail.active {
+            display: block;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            border: 1px solid #00ffaa;
+            color: #00ffaa;
+            padding: 0.8rem 1.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: none;
+            transition: all 0.3s;
+            margin-bottom: 3rem;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: #00ffaa;
+            color: #000;
+        }
+
+        .project-detail-header {
+            margin-bottom: 3rem;
+        }
+
+        .project-detail-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #00ffaa, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-detail-subtitle {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            border: 1px solid #333;
+            color: #999;
+            padding: 0.6rem 1.2rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .project-link:hover {
+            border-color: #00ffaa;
+            color: #00ffaa;
+        }
+
+        .project-detail-content {
+            max-width: 900px;
+        }
+
+        .project-detail-section {
+            margin-bottom: 3rem;
+        }
+
+        .project-detail-section h3 {
+            font-size: 1.8rem;
+            color: #00ffaa;
+            margin-bottom: 1rem;
+        }
+
+        .project-detail-section p {
+            font-size: 1.1rem;
+            color: #999;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .project-detail-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .project-detail-section li {
+            font-size: 1rem;
+            color: #999;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .project-detail-section li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #00ffaa;
+        }
+
+        .project-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .image-lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 10000;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.3s ease;
+        }
+
+        .image-lightbox.active {
+        display: flex;
+        }
+
+        @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+        }
+
+        .lightbox-content {
+        max-width: 90%;
+        max-height: 90%;
+        position: relative;
+        }
+
+        .lightbox-content img {
+        max-width: 100%;
+        max-height: 90vh;
+        object-fit: contain;
+        border: 2px solid #00ffaa;
+        border-radius: 10px;
+        box-shadow: 0 0 50px rgba(0, 255, 170, 0.3);
+        }
+
+        .lightbox-close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        background: transparent;
+        border: 2px solid #00ffaa;
+        color: #00ffaa;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+        z-index: 10001;
+        }
+
+        .lightbox-close:hover {
+        background: #00ffaa;
+        color: #000;
+        transform: rotate(90deg);
+        }
+
+        .lightbox-caption {
+        text-align: center;
+        color: #00ffaa;
+        font-family: monospace;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        }
+
+        .project-image {
+        width: 100%;
+        height: auto;
+        min-height: 150px;
+        background: #111;
+        border: 1px solid #222;
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+        font-family: monospace;
+        cursor: none;
+        transition: transform 0.3s;
+        }
+
+        .project-image:hover {
+        transform: scale(1.02);
+        }
+
+        .project-image img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        cursor: none;
+        }
+
+
+
+        .tech-stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-item {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #00ffaa;
+            transition: all 0.3s;
+        }
+
+        .tech-item:hover {
+            border-color: #00ffaa;
+            transform: translateY(-3px);
+        }
+
+        /*hide main content when viewing project*/
+        body.viewing-project .hero,
+        body.viewing-project #about,
+        body.viewing-project #projects,
+        body.viewing-project #skills,
+        body.viewing-project #contact,
+        body.viewing-project footer {
+            display: none;
+        }
+
+        /*responsive*/
+        @media (max-width: 1024px) {
+            nav {
+                right: 1rem;
+            }
+            
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+            }
+            
+            .bento-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+            .bento-item:nth-child(2) { grid-column: span 2; }
+            .bento-item:nth-child(5) { grid-column: span 2; }
+
+            .project-detail-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cursor, .cursor-dot {
+                display: none;
+            }
+            
+            * {
+                cursor: auto;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .glitch {
+                font-size: 3rem;
+                letter-spacing: -2px;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-number {
+                font-size: 3rem;
+            }
+            
+            section {
+                padding: 4rem 5%;
+            }
+            
+            .hero {
+                padding: 2rem 5%;
+            }
+            
+            .skills-orbital {
+                transform: scale(0.6);
+            }
+
+            #project-detail {
+                padding: 4rem 5%;
+            }
+
+            .project-detail-title {
+                font-size: 2rem;
+            }
+
+            .project-detail-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="cursor"></div>
@@ -111,6 +1087,7 @@
                         <span class="bento-tag">Kaggle</span>
                     </div>
             </div>
+            <!--data-project and onclick-->
             <div class="bento-item" data-project="mlb" onclick="showProject('mlb')">
                     <div class="bento-icon">
                         <img src= "MLBIcon.png"  alt= "MLB Logo">
@@ -219,6 +1196,7 @@
         </div>
     </section>
 
+    <!--project detail view section-->
     <section id="project-detail">
         <a href="#projects" class="back-button" onclick="hideProject()">← Back to Projects</a>
         
@@ -245,7 +1223,572 @@
     </div>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="js/projectData.js"></script>
-    <script src="js/main.js"></script>
+
+    <script>
+        //project data object containing all project information
+        const projectData = {
+            asl: {
+                title: "ASL Translator",
+                subtitle: "Real-time American Sign Language translation using computer vision and deep learning",
+                tags: ["LSTM/Dense", "Kaggle", "MediaPipe", "TensorFlow"],
+                links: [
+                    { text: "View on GitHub", url: "https://github.com/ZackDoll/SignLanguageCV" }
+                ],
+                sections: [
+                    {
+                        title: "Overview",
+                        content: `This project combines computer vision and machine learning to translate American Sign Language 
+                        in real-time. Using your webcam, the system captures hand gestures and translates them into English text, 
+                        making communication more accessible.`
+                    },
+                    {
+                        title: "Technical Approach",
+                        content: `The system uses MediaPipe for hand tracking and keypoint extraction, followed by an LSTM neural 
+                        network for sequence classification. By combining the ASL Citizen dataset with the MSASL dataset, I achieved 
+                        significantly improved accuracy across a wide range of signs.`,
+                        bullets: [
+                            "MediaPipe Holistic for hand, pose, and face landmark detection",
+                            "LSTM architecture for temporal sequence modeling",
+                            "Custom data preprocessing pipeline combining multiple datasets",
+                            "Real-time inference optimization for smooth webcam interaction"
+                        ]
+                    },
+                    {
+                        title: "Key Features",
+                        bullets: [
+                            "Real-time gesture recognition from webcam feed",
+                            "Support for dynamic signs (signs with movement)",
+                            "High accuracy through multi-dataset training",
+                            "Lightweight model suitable for local execution"
+                        ]
+                    },
+                    {
+                        title: "Challenges & Solutions",
+                        content: `One major challenge was dealing with data sparsity in individual datasets. I solved this by 
+                        developing a pipeline to combine and normalize data from multiple sources, significantly increasing the 
+                        training set size and diversity.`
+                    },
+                    {
+                        title: "Future Additions",
+                        bullets:[
+                            "Expand vocabulary to include more words, and understand sentence structure",
+                            "Website is in development",
+                            "Rearrange data inputs for higher accuracy",
+                            "Develop a mobile app",
+                            "Implement user feedback loop for continuous learning",
+                            "Always looking for more data"
+                    ]
+                    }
+                ],
+                images: [
+
+                    {src: "ASLTest.gif", alt: "ASL Detection Demo" },
+                ]
+            },
+            mlb: {
+                title: "MLB Pitch Predictor",
+                subtitle: "Machine learning system predicting pitch types with 85% accuracy",
+                tags: ["Sci-kit Learn", "Node.js", "React", "StatCast API"],
+                links: [
+                    { text: "Live Demo", url: "https://pitch-predictor.onrender.com" },
+                    { text: "View on Github", url: "https://github.com/ZackDoll/PitchingStats" }
+                ],
+                sections: [
+                    {
+                        title: "Overview",
+                        content: `An advanced machine learning system that analyzes real-time game conditions to predict the next 
+                        pitch type in MLB games. Trained on over 12 million historical pitches from StatCast, achieving 85% accuracy.`
+                    },
+                    {
+                        title: "Data Pipeline",
+                        content: `The project required processing massive amounts of baseball data from StatCast's API. I built a 
+                        comprehensive data pipeline to clean, normalize, and feature-engineer the raw pitch data.`,
+                        bullets: [
+                            "Processed 12+ million pitches from StatCast database",
+                            "Feature engineering: count, score, base runners, batter tendencies",
+                            "Real-time API integration for live game predictions",
+                            "Efficient data storage and retrieval system"
+                        ]
+                    },
+                    {
+                        title: "Machine Learning Model",
+                        bullets: [
+                            "Random Forest classifier with custom hyperparameter tuning",
+                            "Feature importance analysis to understand pitcher behavior",
+                            "Context-aware predictions based on game situation",
+                            "85% accuracy on test set, validated across multiple seasons"
+                        ]
+                    },
+                    {
+                        title: "Web Application",
+                        content: `Built a full-stack web application with React frontend and Node.js backend, allowing users to 
+                        explore predictions and visualize pitcher tendencies in real-time.`
+                    }
+                ],
+                images: [
+                    {src: "sampleInput.png", alt: "Prediction Input Interface" },
+                    {src: "sampleGameState.png", alt: "Data Visualization on Website View" }
+                ]
+            },
+            scraper: {
+                title: "Forum Patch Note Scraper",
+                subtitle: "Automated Discord bot for game patch note monitoring and summarization",
+                tags: ["Web Scraping", "ChatGPT", "Discord.py",  "AWS"],
+                links: [
+                    { text: "View on GitHub", url: "https://github.com/ZackDoll/DollySkyblockBot" },
+                    { text: "Discord Bot Invite", url: "https://top.gg/bot/1405336511003623455"}
+                ],
+                sections: [
+                    {
+                        title: "Overview",
+                        content: `A Discord bot that automatically monitors game forums for patch notes, uses ChatGPT to generate 
+                        concise summaries, and distributes them to subscribers. Keeps gaming communities informed without information 
+                        overload.`
+                    },
+                    {
+                        title: "Technical Implementation",
+                        bullets: [
+                            "Automated web scraping with ScrapingAnt to bypass rate limits",
+                            "ChatGPT integration for intelligent content summarization",
+                            "Discord.py for bot functionality and user management",
+                            "Scheduled checks for new forum posts",
+                            "Subscriber management system with custom notification preferences",
+                            "Deployed on AWS Ubuntu EC2 for 24/7 uptime"
+                        ]
+                    },
+                    {
+                        title: "Key Features",
+                        bullets: [
+                            "Real-time monitoring of multiple forum threads",
+                            "AI-powered summarization highlighting key changes",
+                            "User subscription system with role-based notifications",
+                            "Handles API rate limiting and error recovery",
+                            "Customizable summary length and detail level"
+                        ]
+                    },
+                    {
+                        title: "Evolution",
+                        content: `Initially used ScraperAPI and fake browser headers but migrated to ScrapingAnt for better reliability and rate limit handling. 
+                        Optimized ChatGPT prompts to produce more focused, relevant summaries that users actually want to read.
+                        Currently awaiting verificationt to be posted on discord bots lists.`
+                    }
+                ],
+                images: [
+                    {src: "exampleForumPost.png", alt: "Forum Post Example" },
+                    {src: "exampleMessage.png", alt: "Summary Example" }
+                ]
+            },
+            chess: {
+                title: "ChessGPT",
+                subtitle: "AI chess tutor with human-like analysis and move recommendations",
+                tags: ["Stockfish", "LLM", "GRPO", "LoRA", ],
+                links: [
+                    { text: "View on GitHub", url: "https://github.com/ZackDoll/ChessGPT" }
+                ],
+                sections: [
+                    {
+                        title: "Overview",
+                        content: `An AI-powered chess tutor that doesn't just suggest moves, but explains them like a human coach would. 
+                        Uses a custom-trained language model with reinforcement learning to provide natural, educational analysis.`
+                    },
+                    {
+                        title: "Model Architecture",
+                        bullets: [
+                            "Fine-tuned LLM using GRPO (Group Relative Policy Optimization)",
+                            "LoRA (Low-Rank Adaptation) for efficient fine-tuning",
+                            "Trained on chess commentary and analysis from top players",
+                            "Reinforcement learning from chess engine feedback",
+                            "Natural language generation for move explanations"
+                        ]
+                    },
+                    {
+                        title: "Features",
+                        bullets: [
+                            "Real-time move suggestions with detailed reasoning",
+                            "Multiple difficulty levels matching user skill",
+                            "Explains tactical patterns and strategic concepts",
+                            "Analyzes completed games with improvement suggestions",
+                            "Conversational interface for asking follow-up questions"
+                        ]
+                    },
+                    {
+                        title: "Training Process",
+                        content: `The model was trained using GRPO to optimize for both move quality and explanation clarity. 
+                        LoRA allowed efficient fine-tuning without requiring massive computational resources, making the project 
+                        feasible on consumer hardware.`
+                    }
+                ],
+                images: [
+                    {src:"BoardScanTest.png" , alt: "Board Scanner" },
+                    {src:"dataInput.png" , alt: "Training Data" },
+                    {src:"scannedBoard.png" , alt: "Board Scanned" }
+                ]
+            }
+        };
+
+        //function to show project detail view
+        function showProject(projectId) {
+            const project = projectData[projectId];
+            if (!project) return;
+
+
+             if (typeof gtag !== 'undefined') {
+                gtag('event', 'project_view', {
+                'project_name': projectId,
+                'project_title': project.title,
+                'event_category': 'engagement',
+                'event_label': projectId
+                });
+            }
+            //populate project details
+            document.getElementById('detail-title').textContent = project.title;
+            document.getElementById('detail-subtitle').textContent = project.subtitle;
+
+            //populate links
+            const linksContainer = document.getElementById('detail-links');
+            linksContainer.innerHTML = project.links.map(link => 
+                `<a href="${link.url}" class="project-link" target="_blank" rel="noopener noreferrer">
+                    ${link.text} →
+                </a>`
+            ).join('');
+
+            //populate tags
+            const tagsContainer = document.getElementById('detail-tags');
+            tagsContainer.innerHTML = project.tags.map(tag => 
+                `<span class="bento-tag">${tag}</span>`
+            ).join('');
+
+            //populate content sections
+            const contentContainer = document.getElementById('detail-content');
+            contentContainer.innerHTML = project.sections.map(section => `
+                <div class="project-detail-section">
+                    <h3>${section.title}</h3>
+                    ${section.content ? `<p>${section.content}</p>` : ''}
+                    ${section.bullets ? `
+                        <ul>
+                            ${section.bullets.map(bullet => `<li>${bullet}</li>`).join('')}
+                        </ul>
+                    ` : ''}
+                </div>
+            `).join('');
+
+            //add images section if exists
+            if (project.images && project.images.length > 0) {
+                const imagesHtml = `
+                    <div class="project-detail-section">
+                        <h3>Gallery</h3>
+                        <div class="project-images">
+                            ${project.images.map(img => `
+                                <div class="project-image">
+                                    ${img.src ? `<img src="${img.src}" alt="${img.alt}">` : img.alt}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                contentContainer.innerHTML += imagesHtml;
+    
+
+                setTimeout(() => {
+                    document.querySelectorAll('.project-image img').forEach(img => {
+                        img.addEventListener('click', function() {
+                            openLightbox(this.src, this.alt);
+                        });
+                    });
+                }, 100);
+            }
+
+            //add tech stack visualization
+            const techStackHtml = `
+                <div class="project-detail-section">
+                    <h3>Technologies Used</h3>
+                    <div class="tech-stack-grid">
+                        ${project.tags.map(tag => `
+                            <div class="tech-item">${tag}</div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            contentContainer.innerHTML += techStackHtml;
+
+            //show project detail, hide main content
+            document.body.classList.add('viewing-project');
+            document.getElementById('project-detail').classList.add('active');
+            
+            //scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        //function to hide project detail view and return to main portfolio
+        function hideProject() {
+            document.body.classList.remove('viewing-project');
+            document.getElementById('project-detail').classList.remove('active');
+            
+            //scroll to projects section
+            setTimeout(() => {
+                document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+        function openLightbox(imageSrc, imageAlt) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'image_view', {
+                    'image_alt': imageAlt,
+                    'event_category': 'engagement',
+                    'event_label': imageSrc
+                });
+            }
+            const lightbox = document.getElementById('imageLightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+    
+            lightboxImage.src = imageSrc;
+            lightboxImage.alt = imageAlt;
+            lightboxCaption.textContent = imageAlt;
+    
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; //prevent scrolling when lightbox is open
+        }
+
+        function closeLightbox(event) {
+            //close if clicking on the overlay (not the image itself)
+            if (event.target.id === 'imageLightbox' || event.target.classList.contains('lightbox-close')) {
+                const lightbox = document.getElementById('imageLightbox');
+                lightbox.classList.remove('active');
+                document.body.style.overflow = ''; //restore scrolling
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            //close lightbox with escape key
+            if (e.key === 'Escape') {
+                const lightbox = document.getElementById('imageLightbox');
+                if (lightbox.classList.contains('active')) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+
+        //cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+            cursorDot.style.left = e.clientX - 4 + 'px';
+            cursorDot.style.top = e.clientY - 4 + 'px';
+        });
+
+        document.querySelectorAll('a, button, .bento-item').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        //background particles
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 255, 170, 0.3)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 100; i++) {
+            particles.push(new Particle());
+        }
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 255, 170, ${0.1 * (1 - distance / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        //typewriter Effect
+        const roles = ['Web Developer', 'AI/ML Engineer', 'UI/UX Designer', 'Problem Solver'];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typedElement = document.getElementById('typed');
+
+        function typeWriter() {
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                typedElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typedElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        typeWriter();
+
+        //smooth scrolling and active navigation
+    const navLinks = document.querySelectorAll('nav a');
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'navigation_click', {
+                        'section': this.getAttribute('href').replace('#', ''),
+                        'event_category': 'navigation',
+                        'event_label': this.textContent
+                        });
+                    }
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    
+                    //update active state on click
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        //update active state on scroll
+        window.addEventListener('scroll', () => {
+            //don't update nav when viewing project
+            if (document.body.classList.contains('viewing-project')) return;
+
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+
+    emailjs.init("swEV8Ik2BLzd0I-an"); //from emailjs dashboard
+
+function handleSubmit(e) {
+    e.preventDefault();
+    
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'form_submit', {
+            'event_category': 'contact',
+            'event_label': 'contact_form'
+        });
+    }
+
+    const btn = e.target.querySelector('button');
+    const originalText = btn.textContent;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    
+    emailjs.sendForm(
+    'service_ik634s7',    //email service id
+    'template_7pp3rp9',   //email template id
+    e.target              //the form element 
+).then(() => {
+        btn.textContent = 'Sent!';
+        btn.style.borderColor = '#00ff00';
+        btn.style.color = '#00ff00';
+        e.target.reset();
+        
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.borderColor = '#00ffaa';
+            btn.style.color = '#00ffaa';
+            btn.disabled = false;
+        }, 3000);
+    }).catch((error) => {
+        console.error('EmailJS error:', error);
+        btn.textContent = 'Failed to Send';
+        btn.style.borderColor = '#ff0000';
+        btn.style.color = '#ff0000';
+        
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.borderColor = '#00ffaa';
+            btn.style.color = '#00ffaa';
+            btn.disabled = false;
+        }, 3000);
+    });
+}
+</script>
 </body>
 </html>
