@@ -11,7 +11,7 @@ const blogData = [
     {
         id: 2,
         title: "Predicting MLB Pitches with 85% Accuracy",
-        date: "2025-01-10",
+        date: "2025-08-11",
         excerpt: "Breaking down the machine learning pipeline behind my pitch predictor, from StatCast data processing to feature engineering.",
         tags: ["Machine Learning", "Data Science", "React"],
         readTime: "7 min read",
