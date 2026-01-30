@@ -132,14 +132,42 @@ document.addEventListener('keydown', (e) => {
 const cursor = document.querySelector('.cursor');
 const cursorDot = document.querySelector('.cursor-dot');
 
-document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX - 10 + 'px';
-    cursor.style.top = e.clientY - 10 + 'px';
-    cursorDot.style.left = e.clientX - 4 + 'px';
-    cursorDot.style.top = e.clientY - 4 + 'px';
-});
+if (cursor && cursorDot) {
+    let initialized = false;
+    
+    //hide cursor initially
+    cursor.style.opacity = '0';
+    cursorDot.style.opacity = '0';
+    
+    document.addEventListener('mousemove', (e) => {
+        if (!initialized) {
+            initialized = true;
+        }
+        
+        cursor.style.opacity = '1';
+        cursorDot.style.opacity = '1';
+        cursor.style.left = e.clientX - 10 + 'px';
+        cursor.style.top = e.clientY - 10 + 'px';
+        cursorDot.style.left = e.clientX - 4 + 'px';
+        cursorDot.style.top = e.clientY - 4 + 'px';
+    });
+    
+    //hide cursor when mouse leaves the page
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+        cursorDot.style.opacity = '0';
+    });
+    
+    //show cursor when mouse re-enters the page
+    document.addEventListener('mouseenter', () => {
+        if (initialized) {
+            cursor.style.opacity = '1';
+            cursorDot.style.opacity = '1';
+        }
+    });
+}
 
-document.querySelectorAll('a, button, .bento-item').forEach(el => {
+document.querySelectorAll('a, button, .bento-item, .skill-node').forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
@@ -271,6 +299,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+document.querySelector('.newsletter-form')?.addEventListener('submit', function() {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'newsletter_signup', {
+            'event_category': 'engagement',
+            'event_label': 'buttondown_newsletter'
+        });
+    }
+});
 
 window.addEventListener('scroll', () => {
     if (document.body.classList.contains('viewing-project')) return;
@@ -342,3 +378,54 @@ e.target
     }, 3000);
 });
 }
+function loadBlogPosts() {
+    const blogContainer = document.getElementById('blog-container');
+    if (!blogContainer) return;
+
+    const recentPosts = blogData.slice(0, 2);
+    
+    blogContainer.innerHTML = recentPosts.map(post => `
+        <a href="${post.link}" class="blog-card">
+            <div class="blog-date">${dayjs(post.date).format('MMMM D, YYYY')}</div>
+            <h3 class="blog-title">${post.title}</h3>
+            <p class="blog-excerpt">${post.excerpt}</p>
+            <div class="blog-meta">
+                <div class="blog-tags">
+                    ${post.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('')}
+                </div>
+                <div class="blog-read-time">${post.readTime}</div>
+            </div>
+        </a>
+    `).join('');
+}
+
+function showBlogPost(blogId) {
+    const post = blogData.find(p => p.id === blogId);
+    if (!post) return;
+
+    document.getElementById('blog-detail-title').textContent = post.title;
+    document.getElementById('blog-detail-date').textContent = dayjs(post.date).format('MMMM D, YYYY');
+    document.getElementById('blog-detail-read-time').textContent = post.readTime;
+    
+    document.getElementById('blog-detail-tags').innerHTML = post.tags.map(tag => 
+        `<span class="blog-tag">${tag}</span>`
+    ).join('');
+    
+    document.getElementById('blog-detail-content').innerHTML = post.content;
+
+    document.body.classList.add('viewing-blog');
+    document.getElementById('blog-detail').classList.add('active');
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function hideBlogPost() {
+    document.body.classList.remove('viewing-blog');
+    document.getElementById('blog-detail').classList.remove('active');
+    
+    setTimeout(() => {
+        document.getElementById('blog').scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+}
+
+loadBlogPosts();

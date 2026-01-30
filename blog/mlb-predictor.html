@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE3QS19H50"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VE3QS19H50');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicting MLB Pitches with 85% Accuracy - Zachary Doll</title>
+    <link rel="icon" type="image/png" href="../images/LogoImage.png">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <canvas id="particles"></canvas>
+
+    <div class="blog-post-header">
+        <a href="../index.html#blog" class="back-button">← back to portfolio</a>
+    </div>
+
+    <article class="blog-post">
+        <header class="blog-post-header">
+            <div class="blog-post-meta">
+                <span class="blog-post-date">January 10, 2025</span>
+                <span class="blog-post-read-time">7 min read</span>
+            </div>
+            <h1 class="blog-post-title">Predicting MLB Pitches with 85% Accuracy</h1>
+            <div class="blog-post-tags">
+                <span class="blog-tag">Machine Learning</span>
+                <span class="blog-tag">Data Science</span>
+                <span class="blog-tag">React</span>
+            </div>
+        </header>
+
+        <div class="blog-post-content">
+            <p>Can you predict what pitch is coming next in a baseball game? I built a machine learning model that does exactly that with 85% accuracy, using over 12 million pitches from MLB's StatCast database. This project taught me more about feature engineering and real-world data processing than any tutorial ever could.</p>
+
+            <h2>The Challenge</h2>
+            <p>Baseball is a game of patterns and tendencies. Pitchers don't throw randomly—they follow strategies based on the count, score, inning, and batter matchup. The question was: could I build a model that learns these patterns well enough to predict the next pitch type?</p>
+
+            <p>StatCast tracks every pitch in Major League Baseball with incredible detail: velocity, spin rate, movement, location, and contextual data like the count, score, and base runners. I pulled nine years of data (2015-2024) and ended up with 12.3 million pitches to work with.</p>
+
+            <img src="../images/sampleInput.png" alt="MLB pitch predictor input interface showing game situation">
+
+            <h2>Data Pipeline</h2>
+            <p>The raw StatCast data came in massive CSV files, one per season. Each file contained millions of rows with over 80 columns of information. My first challenge was building a pipeline to clean and process this data efficiently.</p>
+
+            <p>I started by filtering out incomplete data points and normalizing pitcher names (since the same pitcher might appear with slight variations). Then I tackled the most important part: feature engineering.</p>
+
+            <h3>Key Features I Engineered</h3>
+            <ul>
+                <li><strong>Pitcher tendencies:</strong> What does this pitcher throw in 2-1 counts? What about with runners in scoring position?</li>
+                <li><strong>Batter matchups:</strong> Historical performance of this specific batter against this pitcher's repertoire</li>
+                <li><strong>Contextual factors:</strong> Inning, score differential, base runners, outs remaining</li>
+                <li><strong>Sequence patterns:</strong> What were the last three pitches thrown?</li>
+                <li><strong>Situational pressure:</strong> High-leverage situations versus low-pressure moments</li>
+            </ul>
+
+            <p>The model's accuracy jumped from 60% to 85% when I added these contextual features. It turns out that knowing the game situation matters way more than just the raw pitch characteristics.</p>
+
+            <h2>The Model</h2>
+            <p>I tested several machine learning algorithms: Logistic Regression, Decision Trees, Random Forest, and Gradient Boosting. Random Forest ended up performing the best, which makes sense given the non-linear decision-making patterns in baseball.</p>
+
+            <pre><code>from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(
+    features, labels, test_size=0.2, random_state=42
+)
+
+# Train model
+model = RandomForestClassifier(
+    n_estimators=200,
+    max_depth=20,
+    min_samples_split=50,
+    random_state=42
+)
+
+model.fit(X_train, y_train)
+
+# Evaluate
+accuracy = model.score(X_test, y_test)
+print(f'Model Accuracy: {accuracy * 100:.2f}%')  # 85.3%</code></pre>
+
+            <h2>Insights from Feature Importance</h2>
+            <p>After training the model, I analyzed which features had the most predictive power. The results were fascinating:</p>
+
+            <ul>
+                <li><strong>Count (balls and strikes):</strong> The single most important predictor. Pitchers are highly predictable based on whether they're ahead or behind in the count.</li>
+                <li><strong>Previous pitch:</strong> The last pitch thrown had significant predictive power. Pitchers follow sequences.</li>
+                <li><strong>Pitcher tendencies:</strong> Individual pitcher habits mattered more than I expected. Some pitchers are extremely predictable.</li>
+                <li><strong>Base runners:</strong> Whether runners were on base dramatically changed pitch selection.</li>
+            </ul>
+
+            <p>One surprising finding: weather conditions and time of day had almost no predictive value. I spent time collecting and cleaning this data only to find it didn't improve the model at all.</p>
+
+            <img src="../images/sampleGameState.png" alt="Pitch prediction probabilities visualization">
+
+            <h2>Building the Web Application</h2>
+            <p>The machine learning model was only half the project. I wanted to make it interactive and useful, so I built a full-stack web application with React and Node.js.</p>
+
+            <h3>Frontend</h3>
+            <p>The React frontend lets users select the current game situation: count, score, inning, base runners, and pitcher. It then displays the predicted pitch probabilities in real-time using an interactive chart.</p>
+
+            <h3>Backend</h3>
+            <p>I built a Flask API that serves the trained model. The biggest challenge was optimizing load times—the initial model took 8 seconds to make a prediction because it was loading from disk each time. I solved this by:</p>
+
+            <ul>
+                <li>Loading the model once on server startup and keeping it in memory</li>
+                <li>Caching pitcher tendency calculations (they don't change during a game)</li>
+                <li>Using NumPy for fast feature vector creation</li>
+            </ul>
+
+            <p>These optimizations brought prediction time down to under 100ms, making the app feel instant.</p>
+
+            <h2>Real-World Performance</h2>
+            <p>I tested the model on live games during the 2024 season. While the overall accuracy stayed around 85%, I noticed some interesting patterns:</p>
+
+            <ul>
+                <li>The model performed better on predictable pitchers (90%+ accuracy)</li>
+                <li>Accuracy dropped in playoff games, likely due to increased strategy variation</li>
+                <li>Rookie pitchers were harder to predict (insufficient historical data)</li>
+                <li>The model struggled with rare pitch types like knuckleballs</li>
+            </ul>
+
+            <h2>Key Takeaways</h2>
+            <p>This project reinforced several important lessons about machine learning in practice:</p>
+
+            <blockquote>
+                Feature engineering is where the magic happens. The difference between 60% and 85% accuracy wasn't a fancier algorithm—it was understanding the domain well enough to create meaningful features.
+            </blockquote>
+
+            <ul>
+                <li><strong>Domain knowledge matters:</strong> Understanding baseball strategy was crucial for feature engineering</li>
+                <li><strong>Data quality over quantity:</strong> 12 million rows sounds impressive, but cleaning the data properly was more important</li>
+                <li><strong>Simple models work:</strong> Random Forest beat more complex deep learning approaches for this problem</li>
+                <li><strong>Production optimization is different:</strong> A model that's 1% more accurate but 10x slower isn't always better</li>
+            </ul>
+
+            <h2>Future Improvements</h2>
+            <p>There are several directions I'd like to explore:</p>
+
+            <ul>
+                <li>Incorporate pitch location predictions (where in the strike zone)</li>
+                <li>Add real-time updates during live games using the MLB API</li>
+                <li>Build a mobile app for fans to use during games</li>
+                <li>Experiment with sequence models (LSTMs) to better capture pitch patterns</li>
+            </ul>
+
+            <h2>Links and Resources</h2>
+            <ul>
+                <li><a href="https://pitch-predictor.onrender.com" target="_blank">Try the live demo →</a></li>
+                <li><a href="https://github.com/ZackDoll/PitchingStats" target="_blank">View the code on GitHub →</a></li>
+                <li><a href="https://baseballsavant.mlb.com/" target="_blank">MLB StatCast database →</a></li>
+            </ul>
+        </div>
+    </article>
+
+    <footer>
+        <p>© 2025 // Built with passion and too much free time</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

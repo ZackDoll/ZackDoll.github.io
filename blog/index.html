@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE3QS19H50"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VE3QS19H50');
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Zachary Doll</title>
+    <link rel="icon" type="image/png" href="../images/LogoImage.png">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <canvas id="particles"></canvas>
+
+    <div class="blog-archive-header">
+        <a href="../index.html#blog" class="back-button">← back to portfolio</a>
+    </div>
+
+    <section class="blog-archive">
+        <div class="section-header">
+            <div class="section-number">all</div>
+            <h1 class="section-title">blog posts</h1>
+        </div>
+
+        <div class="blog-grid" id="all-blog-posts">
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 // built with passion and too much free time</p>
+    </footer>
+
+    <script src="../js/blogData.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        const blogContainer = document.getElementById('all-blog-posts');
+        if (blogContainer) {
+            blogContainer.innerHTML = blogData.map(post => `
+                <a href="${post.link}" class="blog-card">
+                    <div class="blog-date">${dayjs(post.date).format('MMMM D, YYYY')}</div>
+                    <h3 class="blog-title">${post.title}</h3>
+                    <p class="blog-excerpt">${post.excerpt}</p>
+                    <div class="blog-meta">
+                        <div class="blog-tags">
+                            ${post.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('')}
+                        </div>
+                        <div class="blog-read-time">${post.readTime}</div>
+                    </div>
+                </a>
+            `).join('');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+.blog-post-header {
+    padding: 2rem 10%;
+    padding-top: 6rem;
+}
+
+.blog-post {
+    max-width: min(90%, 1200px);
+    margin: 0 auto;
+    padding: 4rem 5%;
+}
+
+.blog-post-header {
+    margin-bottom: 3rem;
+}
+
+.blog-post-meta {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.blog-post-date {
+    color: #00ffaa;
+}
+
+.blog-post-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    background: linear-gradient(90deg, #00ffaa, #00aaff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.blog-post-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.blog-post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #999;
+}
+
+.blog-post-content h2 {
+    font-size: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: #00ffaa;
+}
+
+.blog-post-content h3 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #e0e0e0;
+}
+
+.blog-post-content p {
+    margin-bottom: 1.5rem;
+}
+
+.blog-post-content a {
+    color: #00ffaa;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.blog-post-content a:hover {
+    border-bottom-color: #00ffaa;
+}
+
+.blog-post-content pre {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 2rem 0;
+}
+
+.blog-post-content code {
+    font-family: 'Courier New', monospace;
+    color: #00ffaa;
+    font-size: 0.95rem;
+}
+
+.blog-post-content p code {
+    background: #0a0a0a;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
+}
+
+.blog-post-content img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin: 2rem 0;
+    border: 1px solid #222;
+    display: block;
+}
+
+.blog-post-content ul,
+.blog-post-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.blog-post-content li {
+    margin-bottom: 0.5rem;
+    color: #999;
+}
+
+.blog-post-content blockquote {
+    border-left: 3px solid #00ffaa;
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: #666;
+}
+
+.blog-archive-header {
+    padding: 2rem 10%;
+    padding-top: 6rem;
+}
+
+.blog-archive {
+    padding: 4rem 10%;
+    min-height: 100vh;
+}
+
+.blog-archive .section-header {
+    margin-bottom: 4rem;
+}
+
+.blog-archive .blog-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.blog-archive .blog-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    padding-right: 10rem;
+    padding-bottom: 4rem;
+    min-height: auto;
+    position: relative;
+}
+
+.blog-archive .blog-card .blog-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    order: 1;
+}
+
+.blog-archive .blog-card .blog-date {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    order: 2;
+}
+
+.blog-archive .blog-card .blog-excerpt {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    order: 3;
+}
+
+.blog-archive .blog-card .blog-meta {
+    order: 4;
+}
+
+.blog-archive .blog-card .blog-tags {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+.blog-archive .blog-card .blog-read-time {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+}
+
+@media (max-width: 768px) {
+    .blog-post-title {
+        font-size: 2rem;
+    }
+    
+    .blog-post {
+        padding: 2rem 5%;
+    }
+    
+    .blog-post-header {
+        padding: 2rem 5%;
+        padding-top: 4rem;
+    }
+    
+    .blog-archive {
+        padding: 2rem 5%;
+    }
+    
+    .blog-archive .blog-grid {
+        max-width: 100%;
+    }
+    
+    .blog-archive .blog-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .blog-archive .blog-card .blog-date {
+        min-width: auto;
+    }
+}

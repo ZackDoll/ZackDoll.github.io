@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE3QS19H50"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VE3QS19H50');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automating Discord Communities with AI - Zachary Doll</title>
+    <link rel="icon" type="image/png" href="../images/LogoImage.png">
+    <link rel="shortcut icon" type="image/png" href="../images/LogoImage.png">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <canvas id="particles"></canvas>
+
+    <div class="blog-post-header">
+        <a href="../index.html#blog" class="back-button">← back to portfolio</a>
+    </div>
+
+    <article class="blog-post">
+        <header class="blog-post-header">
+            <div class="blog-post-meta">
+                <span class="blog-post-date">January 5, 2025</span>
+                <span class="blog-post-read-time">4 min read</span>
+            </div>
+            <h1 class="blog-post-title">Automating Discord Communities with AI</h1>
+            <div class="blog-post-tags">
+                <span class="blog-tag">AI</span>
+                <span class="blog-tag">Web Scraping</span>
+                <span class="blog-tag">Discord</span>
+            </div>
+        </header>
+
+        <div class="blog-post-content">
+            <p>Game patch notes are usually 3,000-word essays filled with developer commentary, bug fixes, and balance changes. My Discord community for Hypixel SkyBlock kept asking the same question every update: "Can someone just tell me what changed?" So I built a bot that scrapes patch notes from the Hypixel forums, summarizes them with ChatGPT, and posts clean updates to 500+ subscribers.</p>
+
+            <h2>The Problem</h2>
+            <p>Hypixel SkyBlock releases frequent updates with extensive patch notes posted on their official forum. While comprehensive, these posts are overwhelming for casual players who just want to know the highlights—what items got buffed, what got nerfed, and what's new.</p>
+
+            <p>Our Discord server had a pattern: someone would post "new patch dropped," followed by 20 messages of people asking "what changed?" Eventually, someone would volunteer to read through thousands of words and write a summary. This happened every single update.</p>
+
+            <p>I saw an opportunity to automate this entirely, and learn about web scraping and AI integration in the process.</p>
+
+            <h2>Web Scraping Challenges</h2>
+            <p>The first challenge was getting the patch notes from the Hypixel forums. The forum uses Cloudflare protection, which blocks most automated requests. My initial attempts with simple Python requests failed immediately.</p>
+
+            <h3>What Didn't Work</h3>
+            <ul>
+                <li><strong>Basic requests library:</strong> Blocked by Cloudflare instantly</li>
+                <li><strong>Fake user agents:</strong> Still detected and blocked</li>
+                <li><strong>Selenium:</strong> Too slow and resource-intensive for a bot that needs to run 24/7</li>
+            </ul>
+
+            <h3>The Solution: ScrapingAnt</h3>
+            <p>I switched to ScrapingAnt, a web scraping API that handles JavaScript rendering, rotating proxies, and Cloudflare bypass automatically. It's not free, but the reliability is essential for a production bot that can't afford downtime.</p>
+
+            <pre><code>from scrapingant_client import ScrapingAntClient
+from bs4 import BeautifulSoup
+
+scraper = ScrapingAntClient(token=os.getenv('SCRAPINGANT_API_KEY'))
+
+# scrape the forum page
+response = scraper.general_request(URL, browser=False)
+soup = BeautifulSoup(response.content, "html.parser")
+
+# find all thread containers
+all_threads = soup.select("div.structItem")
+
+# extract patch notes from the post
+post_response = scraper.general_request(new_link, browser=False)
+soup_post = BeautifulSoup(post_response.content, "html.parser")
+post_body = soup_post.find("div", class_="bbWrapper")
+patch_notes_text = post_body.get_text(separator="\n")</code></pre>
+
+            <h3>Handling Sticky and Regular Posts</h3>
+            <p>The forum has both pinned (sticky) patch notes and regular patch notes. I needed to track both separately because sometimes important updates are pinned. The bot checks for redirect threads and distinguishes between sticky and normal redirects:</p>
+
+            <pre><code>for thread in all_threads:
+    classes = thread.get("class", [])
+    is_redirect = "structItem--thread-redirect" in classes
+    
+    parent = thread.parent
+    parent_classes = parent.get("class", []) if parent else []
+    is_sticky = "structItemContainer-group--sticky" in parent_classes
+    
+    if is_redirect and is_sticky:
+        # handle pinned patch notes
+    elif is_redirect and not is_sticky:
+        # handle regular patch notes</code></pre>
+
+            <img src="../images/exampleForumPost.png" alt="Example of a lengthy game forum patch note post">
+
+            <h2>AI-Powered Summarization</h2>
+            <p>Once I had the raw patch notes, I needed to condense them into something people would actually read. This is where the OpenAI API came in.</p>
+
+            <h3>Prompt Engineering</h3>
+            <p>Getting good summaries required extensive prompt engineering. After many failed attempts where the AI would skip important changes or add unnecessary commentary, I created a very detailed, rules-based prompt:</p>
+
+            <pre><code>response = chatgptClient.responses.create(
+    model="gpt-4-turbo",
+    instructions="You are a summarizer",
+    input=
+    f"summarize the Hypixel SkyBlock patch notes below. "
+    f"follow these rules EXACTLY:\n\n"
+    f"1. include EVERY SINGLE change mentioned, no exceptions\n"
+    f"2. for numerical changes, format as: [item]: [old value] → [new value]\n"
+    f"3. for non-numerical changes, list exactly what changed\n"
+    f"4. group into categories: new features, balance changes, "
+    f"   bug fixes, other changes\n"
+    f"5. use bullet points and sub-bullets to match the original structure\n"
+    f"6. if a bullet point has sub-items, include ALL sub-items\n"
+    f"7. ignore only bug reporting instructions or feedback sections\n\n"
+    f"CRITICAL RULES:\n"
+    f"- if something was added, removed, changed, buffed, nerfed, "
+    f"  or standardized → include it\n"
+    f"- if a rarity changed → include it\n"
+    f"- if a multiplier was removed → include it\n"
+    f"- missing even ONE change is unacceptable\n\n"
+    f"DO NOT add any commentary, postamble, or explanation.\n"
+    f"output ONLY the summary itself, nothing else.\n\n"
+    f"PATCH NOTES:\n{patch_notes_text}"
+)</code></pre>
+
+            <p>This prompt is intentionally very strict. Early versions would sometimes skip "minor" changes that players actually cared about. The all-caps emphasis and explicit rules ensure completeness over brevity.</p>
+
+            <h3>Handling Long Messages</h3>
+            <p>Discord has a 2000-character message limit. Some patch notes summaries exceed this, so I wrote a function to intelligently split long messages while preserving formatting:</p>
+
+            <pre><code>async def send_long_message(user, text, limit=1800):
+    lines = text.split("\n")
+    current_chunk = ""
+
+    for line in lines:
+        # check if adding this line exceeds the limit
+        if len(current_chunk) + len(line) + 1 > limit:
+            await user.send(current_chunk)
+            current_chunk = ""
+
+        # add the line to the current chunk
+        if current_chunk:
+            current_chunk += "\n" + line
+        else:
+            current_chunk = line
+
+    # send any remaining text
+    if current_chunk:
+        await user.send(current_chunk)</code></pre>
+
+            <p>I use 1800 as the limit instead of 2000 to leave a safety margin. This splits on newlines to avoid breaking sentences or bullet points mid-line.</p>
+
+            <h2>Discord Integration</h2>
+            <p>The bot needed to run 24/7, check for new patches regularly, and notify subscribers when updates drop. I used Discord.py for the bot framework and implemented a file-based subscription system.</p>
+
+            <h3>Subscription System</h3>
+            <p>Rather than using database overhead, I implemented a simple file-based subscription system. User IDs are stored in a text file and loaded into memory on startup:</p>
+
+            <pre><code>SUBSCRIBERS_FILE = "subscribers.txt"
+subscriber_ids = []
+
+# load subscribers on startup
+if os.path.exists(SUBSCRIBERS_FILE):
+    with open(SUBSCRIBERS_FILE, "r") as f:
+        subscriber_ids = [int(line.strip()) for line in f if line.strip()]
+
+@client.event
+async def on_message(message: Message) -> None:
+    if message.author == client.user:
+        return
+
+    user_message = message.content.strip()
+
+    # subscribe command
+    if user_message.lower() == "!subscribe":
+        user_id = message.author.id
+
+        if user_id in subscriber_ids:
+            await message.channel.send(
+                f"{message.author.mention} you're already subscribed!"
+            )
+            return
+
+        # add to file and runtime list
+        with open(SUBSCRIBERS_FILE, "a") as f:
+            f.write(f"{user_id}\n")
+        subscriber_ids.append(user_id)
+
+        await message.channel.send(
+            f"{message.author.mention} subscribed to patch notes!"
+        )
+
+    # unsubscribe command
+    elif user_message.lower() == "!unsubscribe":
+        user_id = message.author.id
+
+        if user_id not in subscriber_ids:
+            await message.channel.send(
+                f"{message.author.mention} you're not subscribed!"
+            )
+            return
+
+        subscriber_ids.remove(user_id)
+        
+        # rewrite entire file without this user
+        with open(SUBSCRIBERS_FILE, "w") as f:
+            for sub_id in subscriber_ids:
+                f.write(f"{sub_id}\n")
+
+        await message.channel.send(
+            f"{message.author.mention} unsubscribed from patch notes!"
+        )</code></pre>
+
+            <h3>Automated Scanning</h3>
+            <p>The bot scans the forum every 10 minutes for new posts. I track the last seen link for both sticky (pinned) and regular posts separately to avoid missing updates:</p>
+
+            <pre><code>async def scan_for_updates():
+    global last_seen_link
+    global last_seen_sticky_link
+    
+    while True:
+        print(f"Scanned at {datetime.datetime.now()}")
+        
+        try:
+            response = scraper.general_request(URL, browser=False)
+            soup = BeautifulSoup(response.content, "html.parser")
+        except Exception as e:
+            print(f"Error: {e}")
+            await asyncio.sleep(600)  # wait 10 minutes
+            continue
+
+        all_threads = soup.select("div.structItem")
+        
+        # check for new sticky and normal redirects
+        for thread in all_threads:
+            # ... process thread logic ...
+            
+            if new_link != last_seen_link:
+                # save new link
+                with open(SAVE_FILE, "w") as f:
+                    f.write(new_link)
+                
+                # scrape and summarize
+                post_response = scraper.general_request(new_link, browser=False)
+                soup_post = BeautifulSoup(post_response.content, "html.parser")
+                post_body = soup_post.find("div", class_="bbWrapper")
+                patch_notes_text = post_body.get_text(separator="\n")
+                
+                # send to all subscribers
+                await send_update_message(patch_notes_text, new_link)
+        
+        await asyncio.sleep(600)  # check every 10 minutes
+
+@client.event
+async def on_ready() -> None:
+    print(f"{client.user} is now running")
+    scraper = ScrapingAntClient(token=os.getenv('SCRAPINGANT_API_KEY'))
+    client.loop.create_task(scan_for_updates())</code></pre>
+
+            <img src="../images/exampleMessage.png" alt="Discord bot posting a formatted patch note summary">
+
+            <h2>Deployment</h2>
+            <p>The bot runs 24/7 on a cloud server to ensure constant uptime. I use <code>python-dotenv</code> to manage environment variables securely.</p>
+
+            <h3>Cost Breakdown</h3>
+            <ul>
+                <li><strong>Server hosting:</strong> ~$5-10/month (various options available, but free for first 6 months)</li>
+                <li><strong>ScrapingAnt:</strong> $0/month for 10,000 API credits (checks every 10 minutes = ~4,300 checks/month)</li>
+                <li><strong>OpenAI API:</strong> Less than $.50/month depending on patch frequency</li>
+            </ul>
+
+            <p>Total: About $6/month to serve a community of 500+ users. The automated summaries save hours of manual work every week, making it worthwhile for active communities.</p>
+
+            <h2>Error Handling and Reliability</h2>
+            <p>Production bots need robust error handling. I learned this the hard way when the ScrapingAnt API had downtime and the bot crashed trying to make requests.</p>
+
+            <h3>Safeguards I Implemented</h3>
+            <ul>
+                <li><strong>Try-catch blocks:</strong> Wrap all scraping operations to prevent crashes</li>
+                <li><strong>Graceful degradation:</strong> If scraping fails, wait 10 minutes and try again instead of crashing</li>
+                <li><strong>Link persistence:</strong> Store last seen links in files so restarts don't cause duplicate notifications</li>
+                <li><strong>Separate tracking:</strong> Track sticky and normal posts independently to catch pinned updates</li>
+                <li><strong>Message splitting:</strong> Automatically split long summaries to avoid Discord's character limit</li>
+            </ul>
+
+            <pre><code>try:
+    response = scraper.general_request(URL, browser=False)
+    soup = BeautifulSoup(response.content, "html.parser")
+except Exception as e:
+    print(f"Link unavailable: {e}")
+    await asyncio.sleep(600)  # wait before retrying
+    continue
+
+# check if post body exists before processing
+if post_body:
+    patch_notes_text = post_body.get_text(separator="\n")
+    await send_update_message(patch_notes_text, new_link)
+else:
+    print("ERROR: could not find post body!")</code></pre>
+
+            <h3>Environment Variables</h3>
+            <p>All sensitive data is stored in environment variables using <code>python-dotenv</code>. This keeps API keys and tokens out of the code:</p>
+
+            <pre><code>from dotenv import load_dotenv
+
+load_dotenv()
+TOKEN = os.getenv("DISCORD_TOKEN")
+chatgptClient = OpenAI(api_key=os.getenv("CHATGPT_API_KEY"))
+scraper = ScrapingAntClient(token=os.getenv('SCRAPINGANT_API_KEY'))</code></pre>
+
+            <h2>Community Response</h2>
+            <p>The bot has been serving the community for several months now. The results:</p>
+
+            <ul>
+                <li>500+ active subscribers across multiple Discord servers</li>
+                <li>Consistent, reliable summaries within minutes of patch releases</li>
+                <li>Zero spam complaints—the bot only sends messages when there's actually a patch</li>
+                <li>Patch discussions now happen faster because everyone gets comprehensive summaries immediately</li>
+                <li>The "can someone summarize this?" messages have completely disappeared</li>
+                <li>Players appreciate the detailed summaries that don't miss changes</li>
+            </ul>
+
+            <blockquote>
+                The best automation is the kind people don't even notice is happening. They just wonder how they ever lived without it.
+            </blockquote>
+
+            <p>The bot is currently pending verification to be listed on Discord bot directories, which will make it available to even more Hypixel SkyBlock communities.</p>
+
+            <h2>Future Enhancements</h2>
+            <p>There are several features I'm considering adding:</p>
+
+            <ul>
+                <li><strong>Database migration:</strong> Move from text files to SQLite or PostgreSQL for better subscriber management at scale</li>
+                <li><strong>Webhook support:</strong> Allow other Discord servers to subscribe via webhooks</li>
+                <li><strong>Change highlighting:</strong> Compare new patch with previous one and highlight what's different</li>
+                <li><strong>Search command:</strong> Let users search past patch notes with <code>!search [keyword]</code></li>
+                <li><strong>Notification preferences:</strong> Let users choose between full summaries or major changes only</li>
+                <li><strong>Retry logic:</strong> Add exponential backoff if ScrapingAnt rate limits are hit</li>
+            </ul>
+
+            <h2>Lessons Learned</h2>
+            <p>This project taught me several valuable lessons about building production bots:</p>
+
+            <ul>
+                <li><strong>Prompt engineering is iterative:</strong> My final prompt is 20+ lines of explicit rules. Early versions would skip changes or add commentary. Being extremely specific in the prompt eliminated these issues.</li>
+                <li><strong>File-based storage is sufficient:</strong> I almost added PostgreSQL for subscriber management, but a simple text file works perfectly fine for this scale.</li>
+                <li><strong>Error handling can't be an afterthought:</strong> The first version crashed constantly. Wrapping everything in try-catch and adding graceful fallbacks made it production-ready.</li>
+                <li><strong>Track everything separately:</strong> Initially I only tracked regular posts. Missing sticky (pinned) updates taught me to handle them independently.</li>
+                <li><strong>Test with real data:</strong> My local testing worked perfectly. Production immediately revealed edge cases like 2000+ character summaries.</li>
+            </ul>
+
+            <h2>Links and Resources</h2>
+            <ul>
+                <li><a href="https://github.com/ZackDoll/DollySkyblockBot" target="_blank">View the code on GitHub →</a></li>
+                <li><a href="https://top.gg/bot/1405336511003623455" target="_blank">Invite the bot to your Discord (If
+                     this doesn't work then it didn't get approved on the upload website) →</a></li>
+                <li><a href="https://scrapingant.com" target="_blank">ScrapingAnt documentation →</a></li>
+                <li><a href="https://platform.openai.com/docs" target="_blank">OpenAI API documentation →</a></li>
+            </ul>
+        </div>
+    </article>
+
+    <footer>
+        <p>© 2025 // Built with passion and too much free time</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
