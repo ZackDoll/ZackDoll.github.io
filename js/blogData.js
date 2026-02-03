@@ -1,5 +1,6 @@
 const blogData = [
     {
+        //all blog data goes here
         id: 4,
         title: "Vynel: Tinder for Music Discovery",
         date: "2025-02-02",
