@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE3QS19H50"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-VE3QS19H50');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducing Vynel: Tinder for Music Discovery - Zachary Doll</title>
+    <link rel="icon" type="image/png" href="../images/LogoImage.png">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <canvas id="particles"></canvas>
+
+    <div class="blog-post-header">
+        <a href="../index.html#blog" class="back-button">← back to portfolio</a>
+    </div>
+
+    <article class="blog-post">
+        <header class="blog-post-header">
+            <div class="blog-post-meta">
+                <span class="blog-post-date">February 2, 2025</span>
+                <span class="blog-post-read-time">6 min read</span>
+            </div>
+            <h1 class="blog-post-title">Introducing Vynel: Tinder for Music Discovery</h1>
+            <div class="blog-post-tags">
+                <span class="blog-tag">Spotify</span>
+                <span class="blog-tag">Web App</span>
+                <span class="blog-tag">Full-Stack</span>
+                <span class="blog-tag">App Overview</span>
+            </div>
+        </header>
+
+        <div class="blog-post-content">
+            <p>Discovering new music shouldn't feel like homework. We've all been there: scrolling endlessly through
+                Spotify playlists, skipping through algorithmic suggestions that miss the mark, or just replaying the
+                same songs because finding something fresh feels like too much effort. That's why I'm building Vynel, a
+                music discovery app that makes finding your next favorite song as simple as a swipe.</p>
+
+            <img src="../images/Vynel_Logo.png" alt="Vynel logo">
+
+            <h2>What is Vynel?</h2>
+            <p>Think Tinder, but for music. Vynel connects directly to your Spotify account and presents you with songs
+                one at a time. Swipe right if you like it and the song gets added to your personalized "Vynel
+                Discoveries" playlist. Swipe left to skip it. The more you swipe, the smarter the app gets at
+                understanding your taste.</p>
+
+            <p>The core idea is simple: instead of overwhelming you with choices, Vynel gives you one song at a time
+                with a 30-second preview. No analysis paralysis, no endless scrolling. Just pure, focused discovery.</p>
+
+            <h2>The Problem with Music Discovery Today</h2>
+            <p>Spotify's algorithm is good, but it's also way too safe. It tends to show you variations of what you already
+                know, creating a kind of musical echo chamber. Meanwhile, manually exploring new genres or artists takes
+                time and effort most people don't want to invest.</p>
+
+            <p>Vynel solves this by:</p>
+            <ul>
+                <li>Making discovery frictionless with one swipe at a time</li>
+                <li>Learning from your actual preferences, not just what you've already saved</li>
+                <li>Automatically building playlists so you don't have to manage them yourself</li>
+                <li>Letting you explore specific genres or moods when you want to branch out</li>
+            </ul>
+
+            <h2>Core Features</h2>
+            <p>The MVP will focus on getting the fundamentals right:</p>
+
+            <ul>
+                <li><strong>Spotify Integration:</strong> Seamless OAuth login and playlist management</li>
+                <li><strong>Swipe Interface:</strong> Intuitive gesture-based discovery with 30-second song previews
+                </li>
+                <li><strong>Smart Recommendations:</strong> Algorithm that learns from your swipe history and existing
+                    playlists</li>
+                <li><strong>Automatic Playlist Creation:</strong> Songs you like go straight into a curated Vynel
+                    playlist</li>
+                <li><strong>Genre Exploration:</strong> Toggle between discovery modes to explore specific styles or
+                    moods</li>
+            </ul>
+
+            <h2>The Tech Stack</h2>
+            <p>This is a full-stack project that touches multiple technologies:</p>
+
+            <ul>
+                <li><strong>Frontend:</strong> React/Next.js with TailwindCSS for styling and Framer Motion for smooth
+                    swipe animations</li>
+                <li><strong>Backend:</strong> Node.js/Express for handling Spotify API calls and user data</li>
+                <li><strong>Database:</strong> PostgreSQL or MongoDB to store user preferences and swipe history</li>
+                <li><strong>APIs:</strong> Spotify Web API for authentication, recommendations, and playlist management;
+                    Spotify Web Playback SDK for audio previews</li>
+            </ul>
+
+            <h2>What's Next</h2>
+            <p>Right now, Vynel is in the planning and design phase. The first milestone is getting a working MVP with
+                core swipe functionality and Spotify integration. From there, I'll be adding features like genre
+                filtering, advanced stats, and algorithm improvements based on real user feedback.</p>
+
+            <p>This project is as much about learning full-stack development as it is about building something useful.
+                I'm excited to dive into OAuth flows, work with the Spotify API at scale, and design a recommendation
+                algorithm that actually improves over time.</p>
+
+            <blockquote>
+                This page is subject to change as development progresses, but this is the general idea so far.
+            </blockquote>
+            <img src="../images/Vynel_Main_Page.png" alt="Vynel Demo Main Page Screen">
+
+
+            <h2>Stay Tuned</h2>
+            <p>I'll be documenting the development process here on the blog. Expect deep dives into Spotify API
+                integration, building recommendation algorithms, and creating smooth mobile-first UI experiences. If
+                you're interested in music discovery or full-stack development, follow along. There's a lot more to
+                come.</p>
+            <blockquote>
+                The best way to find new music is to stop looking and start swiping.
+            </blockquote>
+        </div>
+    </article>
+
+    <footer>
+        <p>© 2025 // Built with passion and too much free time</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+
+</html>

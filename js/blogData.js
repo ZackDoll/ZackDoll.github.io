@@ -1,5 +1,14 @@
 const blogData = [
     {
+        id: 4,
+        title: "Vynel: Tinder for Music Discovery",
+        date: "2025-02-02",
+        excerpt: "Product introduction and development journey of Vynel, a web app that helps users discover new music through a swipe-based interface.",
+        tags: ["Spotify", "Web App", "React", "App Overview"],
+        readTime: "6 min read",
+        link: "../blog/vynel-product-proposal.html",
+    },
+    {
         id: 3,
         title: "Building an ASL Translator with Computer Vision",
         date: "2025-11-15",
