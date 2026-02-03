@@ -1,95 +1,22 @@
-function showProject(projectId) {
-    const project = projectData[projectId];
-    if (!project) return;
+function loadProjects() {
+    const projectsContainer = document.getElementById('projects-container');
+    if (!projectsContainer) return;
 
-
-     if (typeof gtag !== 'undefined') {
-        gtag('event', 'project_view', {
-        'project_name': projectId,
-        'project_title': project.title,
-        'event_category': 'engagement',
-        'event_label': projectId
-        });
-    }
-    document.getElementById('detail-title').textContent = project.title;
-    document.getElementById('detail-subtitle').textContent = project.subtitle;
-
-    const linksContainer = document.getElementById('detail-links');
-    linksContainer.innerHTML = project.links.map(link => 
-        `<a href="${link.url}" class="project-link" target="_blank" rel="noopener noreferrer">
-            ${link.text} →
-        </a>`
-    ).join('');
-
-    const tagsContainer = document.getElementById('detail-tags');
-    tagsContainer.innerHTML = project.tags.map(tag => 
-        `<span class="bento-tag">${tag}</span>`
-    ).join('');
-
-    const contentContainer = document.getElementById('detail-content');
-    contentContainer.innerHTML = project.sections.map(section => `
-        <div class="project-detail-section">
-            <h3>${section.title}</h3>
-            ${section.content ? `<p>${section.content}</p>` : ''}
-            ${section.bullets ? `
-                <ul>
-                    ${section.bullets.map(bullet => `<li>${bullet}</li>`).join('')}
-                </ul>
-            ` : ''}
+    projectsContainer.innerHTML = projectData.map(project => `
+        <div class="bento-item" onclick="window.location.href='${project.link}'">
+            <div class="bento-icon">
+                <img src="${project.icon}" alt="${project.title}">
+            </div>
+            <h3 class="bento-title">${project.title}</h3>
+            <p class="bento-description">${project.subtitle}</p>
+            <div class="bento-tags">
+                ${project.tags.map(tag => `<span class="bento-tag">${tag}</span>`).join('')}
+            </div>
         </div>
     `).join('');
-
-    if (project.images && project.images.length > 0) {
-        const imagesHtml = `
-            <div class="project-detail-section">
-                <h3>Gallery</h3>
-                <div class="project-images">
-                    ${project.images.map(img => `
-                        <div class="project-image">
-                            ${img.src ? `<img src="${img.src}" alt="${img.alt}">` : img.alt}
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `;
-        contentContainer.innerHTML += imagesHtml;
-
-
-        setTimeout(() => {
-            document.querySelectorAll('.project-image img').forEach(img => {
-                img.addEventListener('click', function() {
-                    openLightbox(this.src, this.alt);
-                });
-            });
-        }, 100);
-    }
-
-    const techStackHtml = `
-        <div class="project-detail-section">
-            <h3>Technologies Used</h3>
-            <div class="tech-stack-grid">
-                ${project.tags.map(tag => `
-                    <div class="tech-item">${tag}</div>
-                `).join('')}
-            </div>
-        </div>
-    `;
-    contentContainer.innerHTML += techStackHtml;
-
-    document.body.classList.add('viewing-project');
-    document.getElementById('project-detail').classList.add('active');
-    
-    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function hideProject() {
-    document.body.classList.remove('viewing-project');
-    document.getElementById('project-detail').classList.remove('active');
-    
-    setTimeout(() => {
-        document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-}
+loadProjects();
 
 function openLightbox(imageSrc, imageAlt) {
     if (typeof gtag !== 'undefined') {

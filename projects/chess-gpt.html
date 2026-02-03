@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE3QS19H50"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VE3QS19H50');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess GPT - Zachary Doll</title>
+    <link rel="icon" type="image/png" href="../images/LogoImage.png">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <canvas id="particles"></canvas>
+
+    <div class="project-detail-page">
+        <a href="../index.html#projects" class="back-button">← back to projects</a>
+        
+        <div class="project-detail-header">
+            <h1 class="project-detail-title">Chess GPT</h1>
+            <p class="project-detail-subtitle">training language models to play chess using reinforcement learning</p>
+            <div class="project-links">
+                <a href="https://github.com/ZackDoll/ChessGPT" class="project-link" target="_blank" rel="noopener noreferrer">
+                    View on GitHub →
+                </a>
+            </div>
+            <div class="bento-tags">
+                <span class="bento-tag">Python</span>
+                <span class="bento-tag">Reinforcement Learning</span>
+                <span class="bento-tag">GPT</span>
+                <span class="bento-tag">Chess Engine</span>
+            </div>
+        </div>
+
+        <div class="project-detail-content">
+            <div class="project-detail-section">
+                <h3>Overview</h3>
+                <p>An experimental project exploring whether language models can learn to play chess through 
+                reinforcement learning. Using GRPO (Group Relative Policy Optimization), the model learns chess 
+                strategy by playing games against itself and traditional chess engines.</p>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Technical Approach</h3>
+                <p>The project treats chess as a sequence generation problem, where the model generates moves 
+                in algebraic notation. By training with reinforcement learning, the model learns which move 
+                sequences lead to winning positions.</p>
+                <ul>
+                    <li>Language model architecture for move generation</li>
+                    <li>GRPO optimization for policy improvement</li>
+                    <li>Self-play training pipeline</li>
+                    <li>Integration with traditional chess engines for evaluation</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Reinforcement Learning Pipeline</h3>
+                <p>The training process involves the model playing thousands of games, receiving rewards based 
+                on game outcomes. The GRPO algorithm helps the model learn from both successful and unsuccessful 
+                strategies.</p>
+                <ul>
+                    <li>Self-play game generation</li>
+                    <li>Reward shaping based on game results and position evaluation</li>
+                    <li>Policy gradient optimization with baseline</li>
+                    <li>Periodic evaluation against Stockfish</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Challenges</h3>
+                <p>Training language models to play chess presents unique challenges compared to traditional 
+                approaches. The model needs to understand both chess notation and strategic concepts, while 
+                avoiding illegal moves.</p>
+                <ul>
+                    <li>Ensuring legal move generation</li>
+                    <li>Balancing exploration vs exploitation</li>
+                    <li>Computational cost of training through self-play</li>
+                    <li>Encoding board state effectively for the language model</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Results & Insights</h3>
+                <p>The model successfully learns basic chess principles and can play coherent games. While it 
+                doesn't match the strength of traditional chess engines, it demonstrates that language models 
+                can grasp complex game rules and strategy through reinforcement learning.</p>
+                <ul>
+                    <li>Learns opening principles and basic tactics</li>
+                    <li>Generates legal moves consistently after training</li>
+                    <li>Shows understanding of positional concepts</li>
+                    <li>Validates potential for LLMs in strategic decision-making</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Gallery</h3>
+                <div class="project-images">
+                    <div class="project-image">
+                        <img src="../images/BoardScanTest.png" alt="Chess Board Scanning Test">
+                    </div>
+                    <div class="project-image">
+                        <img src="../images/scannedBoard.png" alt="Scanned Board State">
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Technologies Used</h3>
+                <div class="tech-stack-grid">
+                    <div class="tech-item">Python</div>
+                    <div class="tech-item">Reinforcement Learning</div>
+                    <div class="tech-item">GPT</div>
+                    <div class="tech-item">Chess Engine</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 // Built with passion and too much free time</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

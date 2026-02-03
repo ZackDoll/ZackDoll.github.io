@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE3QS19H50"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VE3QS19H50');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLB Pitch Predictor - Zachary Doll</title>
+    <link rel="icon" type="image/png" href="../images/LogoImage.png">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <canvas id="particles"></canvas>
+
+    <div class="project-detail-page">
+        <a href="../index.html#projects" class="back-button">← back to projects</a>
+        
+        <div class="project-detail-header">
+            <h1 class="project-detail-title">MLB Pitch Predictor</h1>
+            <p class="project-detail-subtitle">machine learning system predicting pitch types with 85% accuracy</p>
+            <div class="project-links">
+                <a href="https://pitch-predictor.onrender.com" class="project-link" target="_blank" rel="noopener noreferrer">
+                    Live Demo →
+                </a>
+                <a href="https://github.com/ZackDoll/PitchingStats" class="project-link" target="_blank" rel="noopener noreferrer">
+                    View on Github →
+                </a>
+            </div>
+            <div class="bento-tags">
+                <span class="bento-tag">Sci-kit Learn</span>
+                <span class="bento-tag">Node.js</span>
+                <span class="bento-tag">React</span>
+                <span class="bento-tag">StatCast API</span>
+            </div>
+        </div>
+
+        <div class="project-detail-content">
+            <div class="project-detail-section">
+                <h3>Overview</h3>
+                <p>An advanced machine learning system that analyzes real-time game conditions to predict the next pitch 
+                type in MLB games. Trained on over 12 million historical pitches from StatCast, achieving 85% accuracy.</p>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Data Pipeline</h3>
+                <p>The project required processing massive amounts of baseball data from StatCast's API. I built a 
+                comprehensive data pipeline to clean, normalize, and feature-engineer the raw pitch data.</p>
+                <ul>
+                    <li>Processed 12+ million pitches from StatCast database</li>
+                    <li>Feature engineering: count, score, base runners, batter tendencies</li>
+                    <li>Real-time API integration for live game predictions</li>
+                    <li>Efficient data storage and retrieval system</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Machine Learning Model</h3>
+                <ul>
+                    <li>Random Forest classifier with custom hyperparameter tuning</li>
+                    <li>Feature importance analysis to understand pitcher behavior</li>
+                    <li>Context-aware predictions based on game situation</li>
+                    <li>85% accuracy on test set, validated across multiple seasons</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Web Application</h3>
+                <p>Built a full-stack web application with React frontend and Node.js backend, allowing users to 
+                explore predictions and visualize pitcher tendencies in real-time.</p>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Gallery</h3>
+                <div class="project-images">
+                    <div class="project-image">
+                        <img src="../images/sampleInput.png" alt="Prediction Input Interface">
+                    </div>
+                    <div class="project-image">
+                        <img src="../images/sampleGameState.png" alt="Data Visualization on Website View">
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Technologies Used</h3>
+                <div class="tech-stack-grid">
+                    <div class="tech-item">Sci-kit Learn</div>
+                    <div class="tech-item">Node.js</div>
+                    <div class="tech-item">React</div>
+                    <div class="tech-item">StatCast API</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 // Built with passion and too much free time</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

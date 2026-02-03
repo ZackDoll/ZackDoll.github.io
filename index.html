@@ -63,20 +63,20 @@
             </div>
             <div class="about-text">
                 <p>I’m a computer science student at UCLA with a curiosity for building things that solve real
-                     problems, or just make life a little more fun. Most recently, I built a real-time ASL
-                      translator that uses computer vision and LSTMs to recognize sign language from webcam footage. 
-                      Merging two separate datasets boosted its accuracy, and seeing it actually work for the first 
-                      time was surreal.</p>
+                    problems, or just make life a little more fun. Most recently, I built a real-time ASL
+                    translator that uses computer vision and LSTMs to recognize sign language from webcam footage.
+                    Merging two separate datasets boosted its accuracy, and seeing it actually work for the first
+                    time was surreal.</p>
 
-                    <p>My GitHub is a collection of experiments and side projects, from Python scripts to 
-                    full-stack web apps built with React and Node.js. One of my favorite projects was 
-                    an MLB pitch predictor that analyzes over 12 million pitches to forecast what might 
-                    happen next. I enjoy exploring new ideas, even if they don’t always have a clear 
+                <p>My GitHub is a collection of experiments and side projects, from Python scripts to
+                    full-stack web apps built with React and Node.js. One of my favorite projects was
+                    an MLB pitch predictor that analyzes over 12 million pitches to forecast what might
+                    happen next. I enjoy exploring new ideas, even if they don’t always have a clear
                     purpose: learning along the way is what matters.</p>
 
-                    <p>Outside of coding, I’m usually on a basketball or baseball court, climbing rocks at a 
-                    local gym, or just watching a game and debating plays with friends. I also spend plenty 
-                    of late nights debugging or convincing myself that “just one more feature” won’t take 
+                <p>Outside of coding, I’m usually on a basketball or baseball court, climbing rocks at a
+                    local gym, or just watching a game and debating plays with friends. I also spend plenty
+                    of late nights debugging or convincing myself that “just one more feature” won’t take
                     long, the highly desirable life of a programmer.</p>
                 <div class="about-stats">
                     <div class="stat">
@@ -101,66 +101,7 @@
             <div class="section-number">02</div>
             <h2 class="section-title">Featured Projects</h2>
         </div>
-        <div class="bento-grid">
-            <div class="bento-item" data-project="asl" onclick="showProject('asl')">
-                <div class="bento-icon">
-                    <img src="images/ASLHands.png" alt="ASL Hands">
-                </div>
-                <div class="bento-title">ASL Translator</div>
-                <div class="bento-desc">A revolutionary translator that
-                    translates ASL derived from your webcam to English
-                    text using machine learning</div>
-                <div class='bento-desc'>Created by combining the
-                    ASL Citizen dataset with the MSASL dataset</div>
-                <div class="bento-tags">
-                    <span class="bento-tag">Python</span>
-                    <span class="bento-tag">OpenCV2</span>
-                    <span class="bento-tag">LSTM/Dense</span>
-                    <span class="bento-tag">Kaggle</span>
-                </div>
-            </div>
-            <div class="bento-item" data-project="mlb" onclick="showProject('mlb')">
-                <div class="bento-icon">
-                    <img src="images/MLBIcon.png" alt="MLB Logo">
-                </div>
-                <div class="bento-title">MLB Pitch Predictor</div>
-                <div class="bento-desc">Machine learning algorithm that predicts future pitches based on current
-                    conditions</div>
-                <div class="bento-desc">Achieved 85% accuracy using historical MLB data from StatCast</div>
-                <div class="bento-desc">Data from over 12 million pitches combined into one algorithm</div>
-                <div class="bento-tags">
-                    <span class="bento-tag">Python</span>
-                    <span class="bento-tag">Sci-kit Learn</span>
-                    <span class="bento-tag">Node.js</span>
-                    <span class="bento-tag">React</span>
-                </div>
-            </div>
-
-            <div class="bento-item" data-project="scraper" onclick="showProject('scraper')">
-                <div class="bento-icon">
-                    <img src="images/discordLogo.png" alt="Discord Logo" style="margin-left: -15px; margin-top: -35px;">
-                </div>
-                <div class="bento-title">Forum Patch Note Scraper</div>
-                <div class="bento-desc">Discord bot that summarize forum posts on release using ChatGPT and sends them
-                    to subscribers</div>
-                <div class="bento-tags">
-                    <span class="bento-tag">Python</span>
-                    <span class="bento-tag">ChatGPT</span>
-                    <span class="bento-tag">AWS</span>
-                </div>
-            </div>
-
-            <div class="bento-item" data-project="chess" onclick="showProject('chess')">
-                <div class="bento-icon" style="margin-left: -5px; margin-top: -25px;">♟</div>
-                <div class="bento-title">ChessGPT</div>
-                <div class="bento-desc">AI-powered chess tutor with a custom LLM that provides real-time move
-                    reccomendations and human-like analysis</div>
-                <div class="bento-tags">
-                    <span class="bento-tag">Python</span>
-                    <span class="bento-tag">LLM</span>
-                    <span class="bento-tag">GRPO</span>
-                </div>
-            </div>
+        <div class="bento-grid" id="projects-container">
         </div>
     </section>
 

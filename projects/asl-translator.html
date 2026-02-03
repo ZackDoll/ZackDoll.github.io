@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE3QS19H50"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VE3QS19H50');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASL Translator - Zachary Doll</title>
+    <link rel="icon" type="image/png" href="../images/LogoImage.png">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <canvas id="particles"></canvas>
+
+    <div class="project-detail-page">
+        <a href="../index.html#projects" class="back-button">← back to projects</a>
+        
+        <div class="project-detail-header">
+            <h1 class="project-detail-title">ASL Translator</h1>
+            <p class="project-detail-subtitle">real-time american sign language translation using computer vision and deep learning</p>
+            <div class="project-links">
+                <a href="https://github.com/ZackDoll/SignLanguageCV" class="project-link" target="_blank" rel="noopener noreferrer">
+                    View on GitHub →
+                </a>
+            </div>
+            <div class="bento-tags">
+                <span class="bento-tag">LSTM/Dense</span>
+                <span class="bento-tag">Kaggle</span>
+                <span class="bento-tag">MediaPipe</span>
+                <span class="bento-tag">TensorFlow</span>
+            </div>
+        </div>
+
+        <div class="project-detail-content">
+            <div class="project-detail-section">
+                <h3>Overview</h3>
+                <p>This project combines computer vision and machine learning to translate American Sign Language 
+                in real-time. Using your webcam, the system captures hand gestures and translates them into English text, 
+                making communication more accessible.</p>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Technical Approach</h3>
+                <p>The system uses MediaPipe for hand tracking and keypoint extraction, followed by an LSTM neural 
+                network for sequence classification. By combining the ASL Citizen dataset with the MSASL dataset, I achieved 
+                significantly improved accuracy across a wide range of signs.</p>
+                <ul>
+                    <li>MediaPipe Holistic for hand, pose, and face landmark detection</li>
+                    <li>LSTM architecture for temporal sequence modeling</li>
+                    <li>Custom data preprocessing pipeline combining multiple datasets</li>
+                    <li>Real-time inference optimization for smooth webcam interaction</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Key Features</h3>
+                <ul>
+                    <li>Real-time gesture recognition from webcam feed</li>
+                    <li>Support for dynamic signs (signs with movement)</li>
+                    <li>High accuracy through multi-dataset training</li>
+                    <li>Lightweight model suitable for local execution</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Challenges & Solutions</h3>
+                <p>One major challenge was dealing with data sparsity in individual datasets. I solved this by 
+                developing a pipeline to combine and normalize data from multiple sources, significantly increasing the 
+                training set size and diversity.</p>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Future Additions</h3>
+                <ul>
+                    <li>Expand vocabulary to include more words, and understand sentence structure</li>
+                    <li>Website is in development</li>
+                    <li>Rearrange data inputs for higher accuracy</li>
+                    <li>Develop a mobile app</li>
+                    <li>Implement user feedback loop for continuous learning</li>
+                    <li>Always looking for more data</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Gallery</h3>
+                <div class="project-images">
+                    <div class="project-image">
+                        <img src="../images/ASLTest.gif" alt="ASL Detection Demo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Technologies Used</h3>
+                <div class="tech-stack-grid">
+                    <div class="tech-item">LSTM/Dense</div>
+                    <div class="tech-item">Kaggle</div>
+                    <div class="tech-item">MediaPipe</div>
+                    <div class="tech-item">TensorFlow</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 // Built with passion and too much free time</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

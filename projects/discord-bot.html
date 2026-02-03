@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE3QS19H50"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VE3QS19H50');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Bot - Zachary Doll</title>
+    <link rel="icon" type="image/png" href="../images/LogoImage.png">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <canvas id="particles"></canvas>
+
+    <div class="project-detail-page">
+        <a href="../index.html#projects" class="back-button">← back to projects</a>
+        
+        <div class="project-detail-header">
+            <h1 class="project-detail-title">Discord Bot</h1>
+            <p class="project-detail-subtitle">automated patch note summarization for 500+ hypixel skyblock players</p>
+            <div class="project-links">
+                <a href="https://top.gg/bot/1405336511003623455" class="project-link" target="_blank" rel="noopener noreferrer">
+                    Invite Bot →
+                </a>
+                <a href="https://github.com/ZackDoll/DollySkyblockBot" class="project-link" target="_blank" rel="noopener noreferrer">
+                    View on Github →
+                </a>
+            </div>
+            <div class="bento-tags">
+                <span class="bento-tag">Python</span>
+                <span class="bento-tag">BeautifulSoup</span>
+                <span class="bento-tag">ChatGPT API</span>
+                <span class="bento-tag">Discord.py</span>
+            </div>
+        </div>
+
+        <div class="project-detail-content">
+            <div class="project-detail-section">
+                <h3>Overview</h3>
+                <p>Automated Discord bot that monitors Hypixel SkyBlock forums for patch notes, scrapes them, summarizes 
+                using ChatGPT, and delivers clean updates to 500+ subscribed players. Eliminates the need for manual 
+                summarization in community servers.</p>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Web Scraping Implementation</h3>
+                <p>Built a robust scraping system using ScrapingAnt to bypass Cloudflare protection on the Hypixel forums. 
+                The bot checks every 10 minutes for new posts and handles both pinned and regular patch notes separately.</p>
+                <ul>
+                    <li>ScrapingAnt API integration for reliable Cloudflare bypass</li>
+                    <li>BeautifulSoup for HTML parsing and content extraction</li>
+                    <li>Separate tracking for sticky (pinned) and regular posts</li>
+                    <li>File-based persistence to avoid duplicate notifications</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>AI Summarization</h3>
+                <p>Developed a highly detailed prompt that ensures every change is captured. The AI processes lengthy 
+                patch notes (often 3000+ words) and condenses them into organized, readable summaries.</p>
+                <ul>
+                    <li>20+ line rule-based prompt for completeness</li>
+                    <li>Categorizes changes: new features, balance updates, bug fixes</li>
+                    <li>Formats numerical changes as before → after comparisons</li>
+                    <li>Automatic message splitting for Discord's 2000 character limit</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Discord Integration</h3>
+                <p>Simple but effective subscription system using text file storage. Users can subscribe/unsubscribe with 
+                commands and receive DMs when patches drop.</p>
+                <ul>
+                    <li>!subscribe and !unsubscribe commands</li>
+                    <li>File-based subscriber management (no database overhead)</li>
+                    <li>Direct message notifications to all subscribers</li>
+                    <li>Runs 24/7 with automated scanning</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Reliability & Error Handling</h3>
+                <p>Production-ready with comprehensive error handling. The bot gracefully handles API failures, forum 
+                changes, and network issues without crashing.</p>
+                <ul>
+                    <li>Try-catch blocks around all scraping operations</li>
+                    <li>Graceful degradation on failures (wait and retry)</li>
+                    <li>Environment variable security with python-dotenv</li>
+                    <li>Link persistence across restarts</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Gallery</h3>
+                <div class="project-images">
+                    <div class="project-image">
+                        <img src="../images/exampleForumPost.png" alt="Example Forum Post">
+                    </div>
+                    <div class="project-image">
+                        <img src="../images/exampleMessage.png" alt="Example Bot Message">
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Technologies Used</h3>
+                <div class="tech-stack-grid">
+                    <div class="tech-item">Python</div>
+                    <div class="tech-item">BeautifulSoup</div>
+                    <div class="tech-item">ChatGPT API</div>
+                    <div class="tech-item">Discord.py</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 // Built with passion and too much free time</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
