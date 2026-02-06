@@ -94,7 +94,7 @@ if (cursor && cursorDot) {
     });
 }
 
-document.querySelectorAll('a, button, .bento-item, .skill-node').forEach(el => {
+document.querySelectorAll('a, button, .bento-item').forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
@@ -131,7 +131,7 @@ class Particle {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(0, 255, 170, 0.3)';
+        ctx.fillStyle = 'rgba(212, 165, 116, 0.35)';
         ctx.fill();
     }
 }
@@ -149,7 +149,7 @@ function connectParticles() {
 
             if (distance < 150) {
                 ctx.beginPath();
-                ctx.strokeStyle = `rgba(0, 255, 170, ${0.1 * (1 - distance / 150)})`;
+                ctx.strokeStyle = `rgba(212, 165, 116, ${0.12 * (1 - distance / 150)})`;
                 ctx.lineWidth = 0.5;
                 ctx.moveTo(particles[i].x, particles[i].y);
                 ctx.lineTo(particles[j].x, particles[j].y);

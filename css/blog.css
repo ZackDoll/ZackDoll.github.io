@@ -19,11 +19,11 @@
     margin-bottom: 1rem;
     font-family: monospace;
     font-size: 0.9rem;
-    color: #666;
+    color: #5c5854;
 }
 
 .blog-post-date {
-    color: #00ffaa;
+    color: #d4a574;
 }
 
 .blog-post-title {
@@ -31,7 +31,7 @@
     font-weight: 900;
     margin-bottom: 1.5rem;
     line-height: 1.2;
-    background: linear-gradient(90deg, #00ffaa, #00aaff);
+    background: linear-gradient(90deg, #d4a574, #c4956a);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -46,21 +46,21 @@
 .blog-post-content {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #999;
+    color: #8a8580;
 }
 
 .blog-post-content h2 {
     font-size: 2rem;
     margin-top: 3rem;
     margin-bottom: 1rem;
-    color: #00ffaa;
+    color: #d4a574;
 }
 
 .blog-post-content h3 {
     font-size: 1.5rem;
     margin-top: 2rem;
     margin-bottom: 1rem;
-    color: #e0e0e0;
+    color: #f5f2ed;
 }
 
 .blog-post-content p {
@@ -68,19 +68,19 @@
 }
 
 .blog-post-content a {
-    color: #00ffaa;
+    color: #d4a574;
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: border-color 0.3s;
 }
 
 .blog-post-content a:hover {
-    border-bottom-color: #00ffaa;
+    border-bottom-color: #d4a574;
 }
 
 .blog-post-content pre {
     background: #0a0a0a;
-    border: 1px solid #222;
+    border: 1px solid #2a2623;
     border-radius: 10px;
     padding: 1.5rem;
     overflow-x: auto;
@@ -89,7 +89,7 @@
 
 .blog-post-content code {
     font-family: 'Courier New', monospace;
-    color: #00ffaa;
+    color: #d4a574;
     font-size: 0.95rem;
 }
 
@@ -104,7 +104,7 @@
     max-width: 100%;
     border-radius: 10px;
     margin: 2rem 0;
-    border: 1px solid #222;
+    border: 1px solid #2a2623;
     display: block;
 }
 
@@ -116,15 +116,15 @@
 
 .blog-post-content li {
     margin-bottom: 0.5rem;
-    color: #999;
+    color: #8a8580;
 }
 
 .blog-post-content blockquote {
-    border-left: 3px solid #00ffaa;
+    border-left: 3px solid #d4a574;
     padding-left: 1.5rem;
     margin: 2rem 0;
     font-style: italic;
-    color: #666;
+    color: #5c5854;
 }
 
 .blog-archive-header {
