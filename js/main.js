@@ -113,7 +113,9 @@ window.addEventListener('scroll', () => {
 });
 
 
-emailjs.init("swEV8Ik2BLzd0I-an");
+if (typeof emailjs !== 'undefined') {
+    emailjs.init("swEV8Ik2BLzd0I-an");
+}
 
 function handleSubmit(e) {
 e.preventDefault();
