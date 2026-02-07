@@ -1,0 +1,33 @@
+:root {
+    /* Spacing System - 8pt base (intentional rhythm) */
+    --space-xs: 0.5rem;    /* 8px */
+    --space-sm: 1rem;      /* 16px */
+    --space-md: 1.5rem;    /* 24px */
+    --space-lg: 2rem;      /* 32px */
+    --space-xl: 3rem;      /* 48px */
+    --space-2xl: 4rem;     /* 64px */
+    --space-3xl: 6rem;     /* 96px */
+
+    /* Colors - Disciplined, minimal palette */
+    --bg: #0c0b0a;
+    --bg-elevated: #141210;
+    --bg-card: #161412;
+    --text: #f5f2ed;
+    --text-muted: #8a8580;
+    --text-dim: #5c5854;
+    --accent: #d4a574;
+    --accent-soft: rgba(212, 165, 116, 0.12);
+    --border: #2a2623;
+    --border-hover: #3d3834;
+
+    /* Elevation System - Single, consistent shadow language */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.16);
+
+    /* Border Radius - Consistent across all components */
+    --radius-sm: 6px;   /* Tags, small elements */
+    --radius-md: 8px;   /* Buttons, inputs */
+    --radius-lg: 12px;  /* Cards, containers */
+}

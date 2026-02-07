@@ -1,0 +1,38 @@
+/* Sections */
+section {
+    padding: var(--space-3xl) 10%;
+    min-height: auto;
+}
+
+.section-header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+}
+
+.section-number {
+    font-size: 3rem;
+    font-weight: 400;
+    color: var(--border);
+    font-family: 'DM Serif Display', serif;
+    line-height: 1;
+}
+
+.section-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 2.25rem;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+body.viewing-blog .hero,
+body.viewing-blog #about,
+body.viewing-blog #projects,
+body.viewing-blog #blog,
+body.viewing-blog #contact,
+body.viewing-blog footer {
+    display: none;
+}

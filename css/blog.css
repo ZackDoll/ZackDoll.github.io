@@ -101,11 +101,15 @@
 }
 
 .blog-post-content img {
-    max-width: 100%;
+    max-width: 560px;
+    width: 100%;
+    height: auto;
     border-radius: 10px;
-    margin: 2rem 0;
+    margin: 2rem auto;
     border: 1px solid #2a2623;
     display: block;
+    position: relative;
+    z-index: 1;
 }
 
 .blog-post-content ul,

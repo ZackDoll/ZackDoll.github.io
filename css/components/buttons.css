@@ -1,0 +1,21 @@
+/* Buttons and links */
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.3s ease, color 0.3s ease;
+    margin-bottom: var(--space-xl);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+}
+
+.back-button:hover {
+    border-color: var(--text-dim);
+    color: var(--text);
+}

@@ -1,0 +1,73 @@
+/* Newsletter */
+.newsletter-section {
+    margin: var(--space-xl) auto;
+    max-width: 480px;
+}
+
+.newsletter-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    text-align: center;
+    box-shadow: var(--shadow-md);
+}
+
+.newsletter-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: var(--space-xs);
+}
+
+.newsletter-description {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+}
+
+.newsletter-form {
+    display: flex;
+    gap: var(--space-sm);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.newsletter-input {
+    flex: 1;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.newsletter-input:focus {
+    outline: none;
+    border-color: var(--text-dim);
+}
+
+.newsletter-input::placeholder {
+    color: var(--text-dim);
+}
+
+.newsletter-button {
+    background: var(--text);
+    border: none;
+    color: var(--bg);
+    padding: var(--space-sm) var(--space-md);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.newsletter-button:hover {
+    opacity: 0.9;
+}

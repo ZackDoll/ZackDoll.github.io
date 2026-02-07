@@ -56,154 +56,6 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-const cursor = document.querySelector('.cursor');
-const cursorDot = document.querySelector('.cursor-dot');
-
-if (cursor && cursorDot) {
-    let initialized = false;
-    
-    //hide cursor initially
-    cursor.style.opacity = '0';
-    cursorDot.style.opacity = '0';
-    
-    document.addEventListener('mousemove', (e) => {
-        if (!initialized) {
-            initialized = true;
-        }
-        
-        cursor.style.opacity = '1';
-        cursorDot.style.opacity = '1';
-        cursor.style.left = e.clientX - 10 + 'px';
-        cursor.style.top = e.clientY - 10 + 'px';
-        cursorDot.style.left = e.clientX - 4 + 'px';
-        cursorDot.style.top = e.clientY - 4 + 'px';
-    });
-    
-    //hide cursor when mouse leaves the page
-    document.addEventListener('mouseleave', () => {
-        cursor.style.opacity = '0';
-        cursorDot.style.opacity = '0';
-    });
-    
-    //show cursor when mouse re-enters the page
-    document.addEventListener('mouseenter', () => {
-        if (initialized) {
-            cursor.style.opacity = '1';
-            cursorDot.style.opacity = '1';
-        }
-    });
-}
-
-document.querySelectorAll('a, button, .bento-item').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-});
-
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
-let particles = [];
-
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
-
-class Particle {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.radius = Math.random() * 2;
-    }
-
-    update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-    }
-
-    draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(212, 165, 116, 0.35)';
-        ctx.fill();
-    }
-}
-
-for (let i = 0; i < 100; i++) {
-    particles.push(new Particle());
-}
-
-function connectParticles() {
-    for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < 150) {
-                ctx.beginPath();
-                ctx.strokeStyle = `rgba(212, 165, 116, ${0.12 * (1 - distance / 150)})`;
-                ctx.lineWidth = 0.5;
-                ctx.moveTo(particles[i].x, particles[i].y);
-                ctx.lineTo(particles[j].x, particles[j].y);
-                ctx.stroke();
-            }
-        }
-    }
-}
-
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-        p.update();
-        p.draw();
-    });
-    connectParticles();
-    requestAnimationFrame(animate);
-}
-
-animate();
-
-const roles = ['Web Developer', 'AI/ML Engineer', 'UI/UX Designer', 'Problem Solver'];
-let roleIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-const typedElement = document.getElementById('typed');
-
-function typeWriter() {
-    const currentRole = roles[roleIndex];
-    
-    if (isDeleting) {
-        typedElement.textContent = currentRole.substring(0, charIndex - 1);
-        charIndex--;
-    } else {
-        typedElement.textContent = currentRole.substring(0, charIndex + 1);
-        charIndex++;
-    }
-
-    let typeSpeed = isDeleting ? 50 : 100;
-
-    if (!isDeleting && charIndex === currentRole.length) {
-        typeSpeed = 2000;
-        isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        roleIndex = (roleIndex + 1) % roles.length;
-        typeSpeed = 500;
-    }
-
-    setTimeout(typeWriter, typeSpeed);
-}
-
-typeWriter();
-
 const navLinks = document.querySelectorAll('nav a');
     
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -281,14 +133,14 @@ emailjs.sendForm(
 e.target
 ).then(() => {
     btn.textContent = 'Sent!';
-    btn.style.borderColor = '#00ff00';
-    btn.style.color = '#00ff00';
+    btn.style.borderColor = '#81b29a';
+    btn.style.color = '#81b29a';
     e.target.reset();
     
     setTimeout(() => {
         btn.textContent = originalText;
-        btn.style.borderColor = '#00ffaa';
-        btn.style.color = '#00ffaa';
+        btn.style.borderColor = '#d4a574';
+        btn.style.color = '#d4a574';
         btn.disabled = false;
     }, 3000);
 }).catch((error) => {
@@ -299,8 +151,8 @@ e.target
     
     setTimeout(() => {
         btn.textContent = originalText;
-        btn.style.borderColor = '#00ffaa';
-        btn.style.color = '#00ffaa';
+        btn.style.borderColor = '#d4a574';
+        btn.style.color = '#d4a574';
         btn.disabled = false;
     }, 3000);
 });

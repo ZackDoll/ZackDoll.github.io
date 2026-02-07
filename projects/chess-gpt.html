@@ -13,14 +13,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chess GPT - Zachary Doll</title>
     <link rel="icon" type="image/png" href="../images/LogoImage.png">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/project-detail.css">
 </head>
 <body>
-    <div class="cursor"></div>
-    <div class="cursor-dot"></div>
-    <canvas id="particles"></canvas>
-
     <div class="project-detail-page">
         <a href="../index.html#projects" class="back-button">← back to projects</a>
         
@@ -104,10 +100,10 @@
                 <h3>Gallery</h3>
                 <div class="project-images">
                     <div class="project-image">
-                        <img src="../images/BoardScanTest.png" alt="Chess Board Scanning Test">
+                        <img src="../images/BoardScanTest.png" alt="Chess Board Scanning Test" onclick="openLightbox('../images/BoardScanTest.png', 'Chess Board Scanning Test')">
                     </div>
                     <div class="project-image">
-                        <img src="../images/scannedBoard.png" alt="Scanned Board State">
+                        <img src="../images/scannedBoard.png" alt="Scanned Board State" onclick="openLightbox('../images/scannedBoard.png', 'Scanned Board State')">
                     </div>
                 </div>
             </div>
@@ -127,6 +123,14 @@
     <footer>
         <p>© 2025 // Built with passion and too much free time</p>
     </footer>
+
+    <div class="image-lightbox" id="imageLightbox" onclick="closeLightbox(event)">
+        <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+    </div>
 
     <script src="../js/main.js"></script>
 </body>
