@@ -1,6 +1,7 @@
 function loadProjects() {
     const projectsContainer = document.getElementById('projects-container');
     if (!projectsContainer) return;
+    if (typeof projectData === 'undefined') return;
 
     projectsContainer.innerHTML = projectData.map(project => `
         <div class="bento-item" onclick="window.location.href='${project.link}'">
@@ -16,7 +17,9 @@ function loadProjects() {
     `).join('');
 }
 
-loadProjects();
+if (typeof projectData !== 'undefined') {
+    loadProjects();
+}
 
 function openLightbox(imageSrc, imageAlt) {
     if (typeof gtag !== 'undefined') {
@@ -165,9 +168,11 @@ e.target
 function loadBlogPosts() {
     const blogContainer = document.getElementById('blog-container');
     if (!blogContainer) return;
+    if (typeof blogData === 'undefined') return;
+    if (typeof dayjs === 'undefined') return;
 
     const recentPosts = blogData.slice(0, 2);
-    
+
     blogContainer.innerHTML = recentPosts.map(post => `
         <a href="${post.link}" class="blog-card">
             <div class="blog-date">${dayjs(post.date).format('MMMM D, YYYY')}</div>
@@ -184,32 +189,37 @@ function loadBlogPosts() {
 }
 
 function showBlogPost(blogId) {
+    if (typeof blogData === 'undefined') return;
+    if (typeof dayjs === 'undefined') return;
+
     const post = blogData.find(p => p.id === blogId);
     if (!post) return;
 
     document.getElementById('blog-detail-title').textContent = post.title;
     document.getElementById('blog-detail-date').textContent = dayjs(post.date).format('MMMM D, YYYY');
     document.getElementById('blog-detail-read-time').textContent = post.readTime;
-    
-    document.getElementById('blog-detail-tags').innerHTML = post.tags.map(tag => 
+
+    document.getElementById('blog-detail-tags').innerHTML = post.tags.map(tag =>
         `<span class="blog-tag">${tag}</span>`
     ).join('');
-    
+
     document.getElementById('blog-detail-content').innerHTML = post.content;
 
     document.body.classList.add('viewing-blog');
     document.getElementById('blog-detail').classList.add('active');
-    
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function hideBlogPost() {
     document.body.classList.remove('viewing-blog');
     document.getElementById('blog-detail').classList.remove('active');
-    
+
     setTimeout(() => {
         document.getElementById('blog').scrollIntoView({ behavior: 'smooth' });
     }, 100);
 }
 
-loadBlogPosts();
+if (typeof blogData !== 'undefined' && typeof dayjs !== 'undefined') {
+    loadBlogPosts();
+}
