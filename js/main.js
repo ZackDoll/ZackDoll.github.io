@@ -57,7 +57,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 const navLinks = document.querySelectorAll('nav a');
-    
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -72,9 +72,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 });
             }
             target.scrollIntoView({ behavior: 'smooth' });
-            
-            navLinks.forEach(link => link.classList.remove('active'));
-            this.classList.add('active');
+
+            if (navLinks.length > 0) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+            }
         }
     });
 });
@@ -89,10 +91,11 @@ document.querySelector('.newsletter-form')?.addEventListener('submit', function(
 
 window.addEventListener('scroll', () => {
     if (document.body.classList.contains('viewing-project')) return;
+    if (navLinks.length === 0) return;
 
     let current = '';
     const sections = document.querySelectorAll('section');
-    
+
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
