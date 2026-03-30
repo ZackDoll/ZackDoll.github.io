@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE3QS19H50"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VE3QS19H50');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TreeRequisites - Zachary Doll</title>
+    <link rel="icon" type="image/png" href="../images/LogoImage.png">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/project-detail.css">
+</head>
+<body>
+    <div class="project-detail-page">
+        <a href="../index.html#projects" class="back-button">← back to projects</a>
+
+        <div class="project-detail-header">
+            <h1 class="project-detail-title">TreeRequisites</h1>
+            <p class="project-detail-subtitle">interactive hexgrid visualization of university course prerequisites, built to make scheduling less of a nightmare for transfer students</p>
+            <div class="project-links">
+                <a href="https://treerequisites.com" class="project-link" target="_blank" rel="noopener noreferrer">
+                    Website →
+                </a>
+            </div>
+            <div class="bento-tags">
+                <span class="bento-tag">TypeScript</span>
+                <span class="bento-tag">React</span>
+                <span class="bento-tag">Graph Theory</span>
+                <span class="bento-tag">Docker</span>
+            </div>
+        </div>
+
+        <div class="project-detail-content">
+            <div class="project-detail-section">
+                <h3>Overview</h3>
+                <p>Scheduling classes is genuinely hard, especially as a transfer student. UCLA's prerequisite information
+                is scattered, outdated, and buried. The official guides often don't even match the current curriculum.
+                TreeRequisites was built to fix that. It stores course and major data from universities and visualizes
+                prerequisite chains in an interactive hexgrid, so incoming students can clearly see which classes to take
+                and in which order. The name is a pun on prerequisites and trees, because every good project deserves a
+                good name.</p>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Technical Approach</h3>
+                <p>The frontend is React in TypeScript, using react-hexgrid as a base for the hexagonal grid layout,
+                react-router for page organization, axios and React Query for data fetching, and Zod schemas to enforce
+                runtime type safety on all graph data coming from the backend. The backend is Golang with a Postgres
+                database, using a recursive SQL query to backpropagate the full prerequisite tree from any given major's
+                leaf nodes.</p>
+                <ul>
+                    <li>Recursive SQL query starting from leaf nodes to backpropagate the full prerequisite graph</li>
+                    <li>Modified BFS depth algorithm (adapted from CS 180) to assign each node a tree depth and space nodes at 3× depth intervals</li>
+                    <li>Union-find algorithm to merge user-added elective nodes into the existing graph at the correct position</li>
+                    <li>Zod schema validation on all graph data to catch runtime type mismatches before they cause silent failures</li>
+                    <li>Custom mouse-to-hexagon coordinate mapping that converts screen-space mouse position to the nearest hexagon in grid space</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Key Features</h3>
+                <ul>
+                    <li>Interactive hexgrid that renders the full prerequisite tree for any selected school and major</li>
+                    <li>Drag-and-drop node repositioning with a ghost hexagon outline that follows the cursor and snaps to the nearest grid position on release</li>
+                    <li>OR nodes for equivalent courses: classes like Stats that exist under multiple course codes (ECE 131A, MATH 170E, MATH 100A, etc.) are grouped into a single node where the user can pick their preferred option</li>
+                    <li>Node detail panel showing course ID, code, title, description, and a per-node comment thread; comments are scoped to each specific course, and OR nodes maintain separate comment streams per selection</li>
+                    <li>Hover preview panel for quick course info without opening the full detail panel</li>
+                    <li>Add, delete, and re-add nodes; attach elective courses that merge into the graph via union-find</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Challenges & Solutions</h3>
+                <p>The OR nodes were by far the hardest part of the project. Representing a class that exists under five
+                different course codes sounds simple until you start thinking through the edge cases: what if different
+                options within an OR node have different prerequisites? What if switching selections introduces a node
+                that doesn't exist yet in the graph? Should the node move if its new prerequisites are positioned far
+                away? We went through roughly ten iterations of the OR node implementation before landing on something
+                that felt right, and even then there are edge cases we didn't fully resolve.</p>
+                <p>The other major challenge was data. UCLA, like most universities, doesn't expose prerequisite data
+                through any easily accessible API. The data is either behind gated institutional systems or requires
+                manual scraping. We never found a clean automated solution and ended up relying on direct outreach to IT
+                departments for data access.</p>
+                <p>On the frontend, getting drag-and-drop to feel natural required solving a coordinate space mismatch:
+                the mouse position in screen space didn't map cleanly to the hexagon grid. The fix was to track the
+                origin position of the grid and compute the distance from origin to determine which hexagon the cursor
+                was nearest to, rather than trying to do a direct pixel-to-hex conversion.</p>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Future Improvements</h3>
+                <ul>
+                    <li>Expand the dataset: data is currently the weakest part of the project and the biggest barrier to real usefulness</li>
+                    <li>Improve the tree layout algorithm to handle outlier graph shapes that produce awkward spacing</li>
+                    <li>Fix responsive layout and touch controls for mobile viewports</li>
+                    <li>Evolve the app into a full course planner, surfacing when to take classes, identifying the latest point certain courses can be taken, and reducing the scheduling burden on the user</li>
+                </ul>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Gallery</h3>
+                <div class="project-images">
+                    <div class="project-image">
+                        <img src="../images/treereq_home.png" alt="Home Screen" onclick="openLightbox('../images/treereq_home.png', 'Home Screen')">
+                    </div>
+                    <div class="project-image">
+                        <img src="../images/treereq_graph.png" alt="Prerequisite Graph" onclick="openLightbox('../images/treereq_graph.png', 'Prerequisite Graph')">
+                    </div>
+                    <div class="project-image">
+                        <img src="../images/treereq_node_display.png" alt="Node Detail Panel" onclick="openLightbox('../images/treereq_node_display.png', 'Node Detail Panel')">
+                    </div>
+                    <div class="project-image">
+                        <img src="../images/treereq_orgate.png" alt="OR Gate Node" onclick="openLightbox('../images/treereq_orgate.png', 'OR Gate Node')">
+                    </div>
+                    <div class="project-image">
+                        <img src="../images/treereq_hovernode.png" alt="Node Hover Preview" onclick="openLightbox('../images/treereq_hovernode.png', 'Node Hover Preview')">
+                    </div>
+                    <div class="project-image">
+                        <img src="../images/treereq_logo.png" alt="TreeRequisites Logo" onclick="openLightbox('../images/treereq_logo.png', 'TreeRequisites Logo')">
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-detail-section">
+                <h3>Technologies Used</h3>
+                <div class="tech-stack-grid">
+                    <div class="tech-item">TypeScript</div>
+                    <div class="tech-item">React</div>
+                    <div class="tech-item">Graph Theory</div>
+                    <div class="tech-item">Docker</div>
+                    <div class="tech-item">Golang</div>
+                    <div class="tech-item">PostgreSQL</div>
+                    <div class="tech-item">React Query</div>
+                    <div class="tech-item">Zod</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 // Built with passion and too much free time</p>
+    </footer>
+
+    <div class="image-lightbox" id="imageLightbox" onclick="closeLightbox(event)">
+        <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

@@ -27,8 +27,24 @@ const projectData = [
         id: 4,
         title: "ChessGPT",
         subtitle: "AI chess coach trained with reinforcement learning using GRPO and LoRA, providing human-like move analysis and educational explanations in natural language",
-        icon: "images/chessIcon.png",  
+        icon: "images/chessIcon.png",
         tags: ["Stockfish", "LLM", "GRPO", "LoRA"],
         link: "projects/chess-gpt.html"
+    },
+    {
+        id: 5,
+        title: "TreeRequisites",
+        subtitle: "Interactive hexgrid visualization of university course prerequisites, helping transfer students navigate UCLA's class scheduling with OR nodes, drag-and-drop, and per-node comment threads",
+        icon: "images/treereq_logo.png",
+        tags: ["TypeScript", "React", "Graph Theory", "Docker"],
+        link: "projects/tree-requisites.html"
+    },
+    {
+        id: 6,
+        title: "Vynel",
+        subtitle: "Tinder-style music discovery app that builds a personalized 30-card queue from iTunes, Apple Music charts, and liked-artist seeds, with 30-second previews and Last.fm-powered similar track seeding",
+        icon: "images/Vynel_Logo.png",
+        tags: ["React Native", "MusicKit API", "Node.js", "Recommendation ML"],
+        link: "projects/vynel.html"
     }
 ];
