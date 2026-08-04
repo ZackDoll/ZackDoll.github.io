@@ -1,0 +1,61 @@
+export default function AslTranslator() {
+  return (
+    <>
+      <p>When I started this project, I thought it would be straightforward: point a camera at sign language, run it through a model,
+        done. turns out, real-time gesture recognition is way harder than I expected.</p>
+
+      <h2>The Problem</h2>
+      <p>Most ASL datasets are small and inconsistent. the ASL Citizen dataset had around 5,000 samples, but
+        signs varied wildly based on signer style, lighting, and camera angles. I needed more data,
+        but merging datasets meant dealing with different annotation formats and quality levels.</p>
+
+      <img src="/images/ASLTest.gif" alt="asl translator in action showing real-time hand tracking" />
+
+      <h2>Combining Datasets</h2>
+      <p>I merged ASL Citizen with the Microsoft ASL (MSASL) dataset, which gave me 25,000+ samples across 1,000 classes. the challenge was normalizing everything:</p>
+
+      <ul>
+        <li>different video resolutions and frame rates</li>
+        <li>inconsistent hand landmark formats</li>
+        <li>varying sign durations</li>
+      </ul>
+
+      <p>I wrote a preprocessing pipeline that extracted MediaPipe keypoints from every video, normalized them to a consistent coordinate system, and padded/truncated sequences to uniform lengths.</p>
+
+      <h2>The Model</h2>
+      <p>I used an LSTM architecture because ASL signs are temporal—they're sequences of movements, not static poses. the model takes in sequences of hand landmarks (21 points per hand, 63 coordinates total) and predicts the sign class.</p>
+
+      <pre><code>{`model = Sequential([
+    LSTM(128, return_sequences=True, input_shape=(max_length, 63)),
+    Dropout(0.2),
+    LSTM(64),
+    Dropout(0.2),
+    Dense(num_classes, activation='softmax')
+])`}</code></pre>
+
+      <h2>Real-Time Challenges</h2>
+      <p>Getting it to work in real-time was the hardest part. MediaPipe runs at 30fps, but my model was too slow. i had to:</p>
+
+      <ul>
+        <li>optimize the model architecture (fewer LSTM units)</li>
+        <li>quantize weights for faster inference</li>
+        <li>implement a sliding window to detect sign boundaries</li>
+      </ul>
+
+      <h2>Results</h2>
+      <p>After a month of tweaking, I got it working with ~75% accuracy on common signs and ~15 fps on my laptop. not perfect,
+        but watching it translate simple sentences in real-time was incredibly satisfying. I am still trying to collect more data for some of the more
+        complex signs, but I can get the basic ones pretty accurately</p>
+
+      <blockquote>
+        The biggest lesson: dataset quality matters way more than model complexity. spending time cleaning and merging data gave me better results than any architecture change.
+      </blockquote>
+
+      <h2>Links and Resources</h2>
+      <ul>
+        <li><a href="https://github.com/ZackDoll/SignLanguageCV" target="_blank" rel="noopener noreferrer">View the code on github →</a></li>
+        <li><a href="https://google.github.io/mediapipe/" target="_blank" rel="noopener noreferrer">Mediapipe documentation →</a></li>
+      </ul>
+    </>
+  );
+}

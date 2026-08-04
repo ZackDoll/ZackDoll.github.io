@@ -1,0 +1,29 @@
+.sectionHeader {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+}
+
+.sectionNumber {
+    font-size: 3rem;
+    font-weight: 400;
+    color: var(--border);
+    font-family: 'DM Serif Display', serif;
+    line-height: 1;
+}
+
+.sectionTitle {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 2.25rem;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+@media (max-width: 768px) {
+    .sectionNumber {
+        font-size: 1.75rem;
+    }
+}

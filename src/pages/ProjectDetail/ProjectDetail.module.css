@@ -1,0 +1,229 @@
+.projectDetailPage {
+    padding: 6rem 10%;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+.backButton {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.3s ease, color 0.3s ease;
+    margin-bottom: var(--space-xl);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+}
+
+.backButton:hover {
+    border-color: var(--text-dim);
+    color: var(--text);
+}
+
+.projectDetailHeader {
+    max-width: 1000px;
+    margin: 0 auto 4rem;
+}
+
+.projectDetailTitle {
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    background: linear-gradient(90deg, #d4a574, #c4956a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.projectDetailSubtitle {
+    font-size: 1.3rem;
+    color: #8a8580;
+    margin-bottom: 2rem;
+    font-family: monospace;
+}
+
+.projectLinks {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.projectLink {
+    background: transparent;
+    border: 1px solid #d4a574;
+    color: #d4a574;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-family: monospace;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.projectLink::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: #d4a574;
+    transition: left 0.3s;
+    z-index: -1;
+}
+
+.projectLink:hover {
+    color: #0c0b0a;
+}
+
+.projectLink:hover::before {
+    left: 0;
+}
+
+.projectLinkDisabled {
+    composes: projectLink;
+    opacity: 0.5;
+    cursor: default;
+}
+
+.bentoTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+}
+
+.bentoTag {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.projectDetailContent {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.projectDetailSection {
+    margin-bottom: 3rem;
+}
+
+.projectDetailSection h3 {
+    font-size: 1.8rem;
+    color: #d4a574;
+    margin-bottom: 1rem;
+}
+
+.projectDetailSection p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #8a8580;
+    margin-bottom: 1rem;
+}
+
+.projectDetailSection ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 1rem 0;
+}
+
+.projectDetailSection li {
+    font-size: 1.1rem;
+    color: #8a8580;
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.projectDetailSection li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #d4a574;
+}
+
+.projectImages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.projectImage {
+    position: relative;
+    z-index: 1;
+}
+
+.projectImage img {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #2a2623;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.projectImage img:hover {
+    transform: scale(1.05);
+}
+
+.techStackGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.techItem {
+    background: #161412;
+    border: 1px solid #2a2623;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    color: #d4a574;
+    font-family: monospace;
+    transition: all 0.3s;
+}
+
+.techItem:hover {
+    border-color: #d4a574;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+    .projectDetailPage {
+        padding: 4rem 5%;
+    }
+
+    .projectDetailTitle {
+        font-size: 2.5rem;
+    }
+
+    .projectDetailSubtitle {
+        font-size: 1rem;
+    }
+
+    .projectLinks {
+        flex-direction: column;
+    }
+
+    .projectLink {
+        text-align: center;
+    }
+
+    .projectImages {
+        grid-template-columns: 1fr;
+    }
+}
