@@ -26,6 +26,10 @@
     gap: var(--space-sm);
 }
 
+.skillCell {
+    display: inline-flex;
+}
+
 .skillItem {
     background: var(--bg-card);
     border: 1px solid var(--border);
