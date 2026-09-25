@@ -8,3 +8,22 @@
     position: relative;
     z-index: 1;
 }
+
+.socialLinks {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-md);
+}
+
+.socialLink {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.socialLink:hover {
+    color: var(--accent);
+}

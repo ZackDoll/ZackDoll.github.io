@@ -103,16 +103,6 @@ export default function Nav() {
             Resume
           </a>
         </li>
-        <li>
-          <a
-            href="/#contact"
-            ref={(el) => { linksRef.current.contact = el; }}
-            className={isHome && active === 'contact' ? styles.active : ''}
-            onClick={(e) => handleSectionClick(e, 'contact')}
-          >
-            Contact
-          </a>
-        </li>
         {indicator && (
           <span
             className={styles.indicator}
