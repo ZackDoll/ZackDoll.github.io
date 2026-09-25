@@ -4,7 +4,6 @@ import Hero from './Hero';
 import About from './About';
 import Skills from './Skills';
 import Projects from './Projects';
-import BlogPreview from './BlogPreview';
 import Contact from './Contact';
 import Footer from '../../components/Footer';
 
@@ -26,7 +25,6 @@ export default function Home() {
       <About />
       <Skills />
       <Projects />
-      <BlogPreview />
       <Contact />
       <Footer variant="home" />
     </>

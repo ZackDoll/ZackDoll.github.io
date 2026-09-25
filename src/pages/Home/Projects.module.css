@@ -6,7 +6,12 @@
     margin: 0 auto;
 }
 
+.bentoCell {
+    display: flex;
+}
+
 .bentoItem {
+    flex: 1;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);

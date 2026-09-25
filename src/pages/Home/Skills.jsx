@@ -1,3 +1,4 @@
+import Reveal from '../../components/Reveal';
 import SectionHeader from '../../components/SectionHeader';
 import styles from './Skills.module.css';
 
@@ -21,15 +22,15 @@ export default function Skills() {
     <section id="skills">
       <SectionHeader number="02" title="Skills & Technologies" />
       <div className={styles.skillsContainer}>
-        {SKILL_GROUPS.map((group) => (
-          <div className={styles.skillCategory} key={group.title}>
+        {SKILL_GROUPS.map((group, i) => (
+          <Reveal className={styles.skillCategory} key={group.title} delay={i * 100}>
             <h3 className={styles.skillCategoryTitle}>{group.title}</h3>
             <div className={styles.skillList}>
               {group.skills.map((skill) => (
                 <span className={styles.skillItem} key={skill}>{skill}</span>
               ))}
             </div>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>

@@ -9,8 +9,16 @@
     align-items: center;
     justify-content: space-between;
     background: var(--bg);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid transparent;
     backdrop-filter: blur(8px);
+    transition: padding 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.35s ease, border-color 0.35s ease;
+}
+
+.scrolled {
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-sm);
+    background: rgba(12, 11, 10, 0.82);
+    border-bottom-color: var(--border);
 }
 
 .navLogo {
@@ -30,6 +38,18 @@
     list-style: none;
     display: flex;
     gap: var(--space-xl);
+    position: relative;
+}
+
+.indicator {
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .nav a {

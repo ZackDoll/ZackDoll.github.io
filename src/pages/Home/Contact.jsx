@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
+import Reveal from '../../components/Reveal';
 import SectionHeader from '../../components/SectionHeader';
 import { trackEvent } from '../../utils/gtag';
 import styles from './Contact.module.css';
@@ -47,8 +48,8 @@ export default function Contact() {
 
   return (
     <section id="contact">
-      <SectionHeader number="05" title="Get In Touch" />
-      <div className={styles.contactWrapper}>
+      <SectionHeader number="04" title="Get In Touch" />
+      <Reveal className={styles.contactWrapper}>
         <form className={styles.contactForm} ref={formRef} onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label htmlFor="contact-name">Name</label>
@@ -70,7 +71,7 @@ export default function Contact() {
           <a href="https://www.github.com/ZackDoll" className={styles.socialLink} target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href="https://www.linkedin.com/in/zack-doll-6952b8272" className={styles.socialLink} target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

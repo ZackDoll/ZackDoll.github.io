@@ -7,7 +7,6 @@ const SECTIONS = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'projects', label: 'Work' },
-  { id: 'blog', label: 'Blog' },
 ];
 
 export default function Nav() {
@@ -15,13 +14,34 @@ export default function Nav() {
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
   const [active, setActive] = useState('home');
+  const [scrolled, setScrolled] = useState(false);
+  const [indicator, setIndicator] = useState(null);
   const linksRef = useRef({});
+  const listRef = useRef(null);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const link = isHome ? linksRef.current[active] : null;
+    if (!link) {
+      setIndicator(null);
+      return;
+    }
+    const place = () => setIndicator({ left: link.offsetLeft, width: link.offsetWidth });
+    place();
+    window.addEventListener('resize', place);
+    return () => window.removeEventListener('resize', place);
+  }, [active, isHome]);
 
   useEffect(() => {
     if (!isHome) return;
 
     const onScroll = () => {
-      if (document.body.classList.contains('viewing-blog')) return;
       let current = 'home';
       document.querySelectorAll('section[id]').forEach((section) => {
         const sectionTop = section.offsetTop;
@@ -32,7 +52,7 @@ export default function Nav() {
       setActive(current);
     };
 
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, [isHome]);
@@ -58,9 +78,9 @@ export default function Nav() {
   };
 
   return (
-    <nav className={styles.nav}>
+    <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}>
       <Link to="/" className={styles.navLogo}>Zachary Doll</Link>
-      <ul>
+      <ul ref={listRef}>
         {SECTIONS.map((section) => (
           <li key={section.id}>
             <a
@@ -84,10 +104,21 @@ export default function Nav() {
           </a>
         </li>
         <li>
-          <a href="/#contact" onClick={(e) => handleSectionClick(e, 'contact')}>
+          <a
+            href="/#contact"
+            ref={(el) => { linksRef.current.contact = el; }}
+            className={isHome && active === 'contact' ? styles.active : ''}
+            onClick={(e) => handleSectionClick(e, 'contact')}
+          >
             Contact
           </a>
         </li>
+        {indicator && (
+          <span
+            className={styles.indicator}
+            style={{ transform: `translateX(${indicator.left}px)`, width: indicator.width }}
+          />
+        )}
       </ul>
     </nav>
   );

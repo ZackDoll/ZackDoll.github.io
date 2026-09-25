@@ -1,3 +1,4 @@
+import Reveal from '../../components/Reveal';
 import SectionHeader from '../../components/SectionHeader';
 import styles from './About.module.css';
 
@@ -6,10 +7,10 @@ export default function About() {
     <section id="about">
       <SectionHeader number="01" title="About Me" />
       <div className={styles.aboutGrid}>
-        <div className={styles.aboutImage}>
+        <Reveal className={styles.aboutImage}>
           <img src="/images/ProfilePic.png" alt="Profile Picture" />
-        </div>
-        <div className={styles.aboutText}>
+        </Reveal>
+        <Reveal className={styles.aboutText} delay={120}>
           <p>
             I'm a computer science student at UCLA with a curiosity for building things that solve real
             problems, or just make life a little more fun. Most recently, I built a real-time ASL translator
@@ -42,7 +43,7 @@ export default function About() {
               <div className={styles.statLabel}>Languages</div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

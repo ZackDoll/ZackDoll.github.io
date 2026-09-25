@@ -46,6 +46,13 @@ export const projects = [
         ],
       },
       {
+        heading: 'Results & Lessons',
+        paragraphs: [
+          'After a month of tuning I reached roughly 75% accuracy on common signs at about 15 fps on a laptop. Merging ASL Citizen with MSASL gave 25,000+ samples across 1,000 classes, and getting real-time speed meant fewer LSTM units, quantized weights and a sliding window to detect sign boundaries.',
+          'The biggest lesson: dataset quality matters far more than model complexity. Cleaning and merging data beat every architecture change I tried.',
+        ],
+      },
+      {
         heading: 'Future Additions',
         list: [
           'Expand vocabulary to include more words, and understand sentence structure',
@@ -106,6 +113,17 @@ export const projects = [
         heading: 'Web Application',
         paragraphs: [
           'Built a full-stack web application with React frontend and Node.js backend, allowing users to explore predictions and visualize pitcher tendencies in real-time.',
+        ],
+      },
+      {
+        heading: 'Insights & Lessons',
+        list: [
+          'Count (balls and strikes) was the strongest predictor, followed by the previous pitch, individual pitcher tendencies and base runners',
+          'Weather and time of day had almost no predictive value, despite the time spent collecting them',
+          'Accuracy reached 90%+ on predictable pitchers but dropped for rookies, playoff games and rare pitches like knuckleballs',
+        ],
+        paragraphs: [
+          'Feature engineering was where the gains came from. The jump from 60% to 85% accuracy came from understanding the domain well enough to build meaningful features, not from a fancier algorithm.',
         ],
       },
     ],
@@ -180,6 +198,18 @@ export const projects = [
           'Graceful degradation on failures (wait and retry)',
           'Environment variable security with python-dotenv',
           'Link persistence across restarts',
+        ],
+      },
+      {
+        heading: 'Results & Lessons',
+        paragraphs: [
+          'The bot serves 500+ subscribers across multiple Discord servers, posting summaries within minutes of a patch and only when there is actually a patch.',
+        ],
+        list: [
+          'Prompt engineering is iterative: the final prompt is 20+ lines of explicit rules, which stopped the model skipping changes or adding commentary',
+          'File-based storage was enough at this scale, so no database was needed',
+          'Error handling cannot be an afterthought: the first version crashed whenever the scraping API was down',
+          'Test with real data: production surfaced edge cases like 2000+ character summaries that local testing missed',
         ],
       },
     ],
