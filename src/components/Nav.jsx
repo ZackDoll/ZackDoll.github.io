@@ -75,7 +75,7 @@ export default function Nav() {
         ))}
         <li>
           <a
-            href="/files/Zachary_Doll_resume_Apr_2026.pdf"
+            href="/files/Zachary_Doll_Resume_Sep_2026.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.resumeLink}
