@@ -1,11 +1,27 @@
 import { useEffect, useRef } from 'react';
 import styles from './CursorPokemon.module.css';
 
-const DEADZONE = 46; // px — how close before it sits back down
+const DEADZONE = 150; // px — how close before it sits back down
 const EASE = 0.005; // how quickly it catches up to the cursor — small, so it's a stroll
 const MAX_STEP = 1.6; // px per frame cap, keeps the stroll slow even on big cursor jumps
 const REACT_DELAY = 1500; // ms — how long the cursor has to stay away before it gets up
-const IDLE_SPOT = { x: 64, y: 64 }; // resting corner before the cursor ever moves
+const IDLE_SPOT = { x: 100, y: 100 }; // resting corner before the cursor ever moves
+const FRAME_INSET_RATIO = 0.01; // each edge is inset 1% of the window, so the frame spans ~98%
+const SPRITE_W = 56;
+const SPRITE_H = 49;
+
+// Keeps a point within a frame that's inset from the current window size,
+// so the critter never wanders past the edge of the viewport.
+function clampToFrame(x, y) {
+  const marginX = window.innerWidth * FRAME_INSET_RATIO;
+  const marginY = window.innerHeight * FRAME_INSET_RATIO;
+  const maxX = Math.max(marginX, window.innerWidth - marginX - SPRITE_W);
+  const maxY = Math.max(marginY, window.innerHeight - marginY - SPRITE_H);
+  return {
+    x: Math.min(Math.max(x, marginX), maxX),
+    y: Math.min(Math.max(y, marginY), maxY),
+  };
+}
 
 // A small critter that idles in the corner, then walks/runs to keep up with
 // the cursor. Pure CSS + rAF, no assets or animation libraries.
@@ -18,9 +34,10 @@ export default function CursorPokemon() {
     const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
     if (reduceMotion || isCoarsePointer || !rootRef.current) return;
 
-    const pos = { x: IDLE_SPOT.x, y: IDLE_SPOT.y };
-    const target = { x: IDLE_SPOT.x, y: IDLE_SPOT.y };
-    const cursor = { x: IDLE_SPOT.x, y: IDLE_SPOT.y }; // live cursor position, no delay
+    const start = clampToFrame(IDLE_SPOT.x, IDLE_SPOT.y);
+    const pos = { x: start.x, y: start.y };
+    const target = { x: start.x, y: start.y };
+    const cursor = { x: start.x, y: start.y }; // live cursor position, no delay
     let facing = 1;
     let walking = false;
     let hasMoved = false;
@@ -38,19 +55,22 @@ export default function CursorPokemon() {
 
     const tick = () => {
       if (hasMoved) {
+        // Never chase past the frame's edge — clamp before doing anything else.
+        const framed = clampToFrame(cursor.x, cursor.y);
+
         if (walking) {
-          // Already up and about: chase wherever the cursor is right now.
-          target.x = cursor.x;
-          target.y = cursor.y;
+          // Already up and about: chase wherever the (framed) cursor is right now.
+          target.x = framed.x;
+          target.y = framed.y;
         } else {
-          const strayDist = Math.hypot(cursor.x - pos.x, cursor.y - pos.y);
+          const strayDist = Math.hypot(framed.x - pos.x, framed.y - pos.y);
           if (strayDist > DEADZONE) {
             if (awaySince === null) awaySince = performance.now();
             if (performance.now() - awaySince >= REACT_DELAY) {
               walking = true;
               awaySince = null;
-              target.x = cursor.x;
-              target.y = cursor.y;
+              target.x = framed.x;
+              target.y = framed.y;
               rootRef.current.classList.add(styles.walking);
               rootRef.current.classList.remove(styles.sitting);
             }
