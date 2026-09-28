@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
 import styles from './CursorPokemon.module.css';
 
-const DEADZONE = 36; // px — how close before it stops "walking"
-const EASE = 0.09; // how quickly it catches up to the cursor
-const MAX_STEP = 14; // px per frame, keeps it from teleporting on fast mouse moves
+const DEADZONE = 46; // px — how close before it sits back down
+const EASE = 0.005; // how quickly it catches up to the cursor — small, so it's a stroll
+const MAX_STEP = 1.6; // px per frame cap, keeps the stroll slow even on big cursor jumps
+const REACT_DELAY = 1500; // ms — how long the cursor has to stay away before it gets up
 const IDLE_SPOT = { x: 64, y: 64 }; // resting corner before the cursor ever moves
 
 // A small critter that idles in the corner, then walks/runs to keep up with
@@ -19,20 +20,47 @@ export default function CursorPokemon() {
 
     const pos = { x: IDLE_SPOT.x, y: IDLE_SPOT.y };
     const target = { x: IDLE_SPOT.x, y: IDLE_SPOT.y };
+    const cursor = { x: IDLE_SPOT.x, y: IDLE_SPOT.y }; // live cursor position, no delay
     let facing = 1;
     let walking = false;
     let hasMoved = false;
+    let awaySince = null; // when the cursor first wandered out of the deadzone
     let raf;
+
+    rootRef.current.classList.add(styles.sitting);
 
     const onMove = (e) => {
       hasMoved = true;
       // Trail slightly behind/below the cursor, like a pet at your heel.
-      target.x = e.clientX - 34;
-      target.y = e.clientY + 22;
+      cursor.x = e.clientX - 34;
+      cursor.y = e.clientY + 22;
     };
 
     const tick = () => {
       if (hasMoved) {
+        if (walking) {
+          // Already up and about: chase wherever the cursor is right now.
+          target.x = cursor.x;
+          target.y = cursor.y;
+        } else {
+          const strayDist = Math.hypot(cursor.x - pos.x, cursor.y - pos.y);
+          if (strayDist > DEADZONE) {
+            if (awaySince === null) awaySince = performance.now();
+            if (performance.now() - awaySince >= REACT_DELAY) {
+              walking = true;
+              awaySince = null;
+              target.x = cursor.x;
+              target.y = cursor.y;
+              rootRef.current.classList.add(styles.walking);
+              rootRef.current.classList.remove(styles.sitting);
+            }
+          } else {
+            awaySince = null;
+          }
+        }
+      }
+
+      if (walking) {
         const dx = target.x - pos.x;
         const dy = target.y - pos.y;
         const dist = Math.hypot(dx, dy);
@@ -43,13 +71,10 @@ export default function CursorPokemon() {
           pos.x += dx * ratio;
           pos.y += dy * ratio;
           if (Math.abs(dx) > 1) facing = dx > 0 ? 1 : -1;
-          if (!walking) {
-            walking = true;
-            rootRef.current.classList.add(styles.walking);
-          }
-        } else if (walking) {
+        } else {
           walking = false;
           rootRef.current.classList.remove(styles.walking);
+          rootRef.current.classList.add(styles.sitting);
         }
       }
 

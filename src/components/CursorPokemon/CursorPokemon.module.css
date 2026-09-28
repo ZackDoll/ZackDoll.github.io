@@ -34,7 +34,6 @@
     stroke-linejoin: round;
     transform-box: fill-box;
     transform-origin: 100% 60%;
-    animation: idleSway 2.6s ease-in-out infinite;
 }
 
 .leg rect {
@@ -48,41 +47,55 @@
     transform-origin: 50% 0%;
 }
 
-/* Idle: gentle breathing bob */
-.critter svg {
-    animation: idleBob 2.2s ease-in-out infinite;
+/* Sitting: settled in place, legs tucked under, slow breathing */
+.sitting .legBack {
+    transform: rotate(-28deg);
 }
 
-@keyframes idleBob {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-2px); }
+.sitting .legFront {
+    transform: rotate(28deg);
 }
 
-@keyframes idleSway {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(8deg); }
+.sitting .body {
+    animation: breathe 3.2s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
 }
 
-/* Walking: swap the idle bob for a faster trot and swing the legs */
+.sitting .tail {
+    animation: tailIdle 3.2s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.025); }
+}
+
+@keyframes tailIdle {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+}
+
+/* Walking: a steady trot toward the cursor */
 .walking svg {
-    animation: walkBob 0.35s ease-in-out infinite;
+    animation: walkBob 1s ease-in-out infinite;
 }
 
 .walking .tail {
-    animation: tailSway 0.35s ease-in-out infinite;
+    animation: tailSway 1s ease-in-out infinite;
 }
 
 .walking .legBack {
-    animation: legSwing 0.35s ease-in-out infinite;
+    animation: legSwing 1s ease-in-out infinite;
 }
 
 .walking .legFront {
-    animation: legSwing 0.35s ease-in-out infinite reverse;
+    animation: legSwing 1s ease-in-out infinite reverse;
 }
 
 @keyframes walkBob {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
+    50% { transform: translateY(-2px); }
 }
 
 @keyframes tailSway {
@@ -91,8 +104,8 @@
 }
 
 @keyframes legSwing {
-    0%, 100% { transform: rotate(-22deg); }
-    50% { transform: rotate(22deg); }
+    0%, 100% { transform: rotate(-18deg); }
+    50% { transform: rotate(18deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
