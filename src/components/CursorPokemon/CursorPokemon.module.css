@@ -1,0 +1,102 @@
+.critter {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    pointer-events: none;
+    will-change: transform;
+    filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.35));
+}
+
+.body {
+    fill: #f7d02c;
+    stroke: #2b2210;
+    stroke-width: 1.2;
+}
+
+.earTip {
+    fill: #2b2210;
+}
+
+.cheek {
+    fill: #e3350d;
+    opacity: 0.85;
+}
+
+.eye {
+    fill: #1a1512;
+}
+
+.tail {
+    fill: #f7d02c;
+    stroke: #2b2210;
+    stroke-width: 1.2;
+    stroke-linejoin: round;
+    transform-box: fill-box;
+    transform-origin: 100% 60%;
+    animation: idleSway 2.6s ease-in-out infinite;
+}
+
+.leg rect {
+    fill: #d9a91f;
+    stroke: #2b2210;
+    stroke-width: 1.1;
+}
+
+.leg {
+    transform-box: fill-box;
+    transform-origin: 50% 0%;
+}
+
+/* Idle: gentle breathing bob */
+.critter svg {
+    animation: idleBob 2.2s ease-in-out infinite;
+}
+
+@keyframes idleBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+}
+
+@keyframes idleSway {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(8deg); }
+}
+
+/* Walking: swap the idle bob for a faster trot and swing the legs */
+.walking svg {
+    animation: walkBob 0.35s ease-in-out infinite;
+}
+
+.walking .tail {
+    animation: tailSway 0.35s ease-in-out infinite;
+}
+
+.walking .legBack {
+    animation: legSwing 0.35s ease-in-out infinite;
+}
+
+.walking .legFront {
+    animation: legSwing 0.35s ease-in-out infinite reverse;
+}
+
+@keyframes walkBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+@keyframes tailSway {
+    0%, 100% { transform: rotate(-6deg); }
+    50% { transform: rotate(10deg); }
+}
+
+@keyframes legSwing {
+    0%, 100% { transform: rotate(-22deg); }
+    50% { transform: rotate(22deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .critter {
+        display: none;
+    }
+}
