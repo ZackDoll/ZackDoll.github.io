@@ -37,17 +37,23 @@ const RUN = {
 const IDLE = frames('mudkip_idle', 59, [53]);
 
 // Two sleeping poses living in the same folder under different naming —
-// one is picked at random each time it dozes off, not cycled between.
-const SLEEP_OPTIONS = [
+// a light doze first, then a deeper sleep after it's been out for a while.
+const SLEEP_LIGHT = [
   { src: `${BASE}/mudkip_sleep/sprite_r1_c1.png`, nativeW: 56, nativeH: 53 },
+].map(({ src, nativeW, nativeH }) => {
+  const scale = BASE_SCALE * (TARGET_H / nativeH);
+  return { src, w: Math.round(nativeW * scale), h: Math.round(nativeH * scale) };
+})[0];
+
+const SLEEP_DEEP = [
   { src: `${BASE}/mudkip_sleep/sprite_2.png`, nativeW: 65, nativeH: 50 },
 ].map(({ src, nativeW, nativeH }) => {
   const scale = BASE_SCALE * (TARGET_H / nativeH);
   return { src, w: Math.round(nativeW * scale), h: Math.round(nativeH * scale) };
-});
+})[0];
 
-export function pickSleepFrame() {
-  return SLEEP_OPTIONS[Math.floor(Math.random() * SLEEP_OPTIONS.length)];
+export function sleepFrameForStage(stage) {
+  return stage >= 2 ? SLEEP_DEEP : SLEEP_LIGHT;
 }
 
 // The click reaction: a 4-frame cheer, laid out as a 2x2 grid rather than
@@ -82,7 +88,7 @@ const DIRECTIONS = {
 
 export function framesFor(direction, pose) {
   if (pose === 'sit') return IDLE;
-  if (pose === 'sleep') return SLEEP_OPTIONS;
+  if (pose === 'sleep') return [SLEEP_LIGHT, SLEEP_DEEP];
   return (DIRECTIONS[direction] || DIRECTIONS.down).frames;
 }
 
@@ -110,6 +116,7 @@ export const ALL_SPRITE_URLS = [
   ...RUN.upLeft,
   ...RUN.upRight,
   ...IDLE,
-  ...SLEEP_OPTIONS,
+  SLEEP_LIGHT,
+  SLEEP_DEEP,
   ...ROAR,
 ].map((f) => f.src);

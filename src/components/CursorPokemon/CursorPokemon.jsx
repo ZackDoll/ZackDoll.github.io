@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import SpriteFrame from './SpriteFrame';
-import { ALL_SPRITE_URLS, directionFromVector, framesFor, mirrorFor, pickSleepFrame, roarFrames } from './spriteManifest';
+import { ALL_SPRITE_URLS, directionFromVector, framesFor, mirrorFor, roarFrames, sleepFrameForStage } from './spriteManifest';
 import styles from './CursorPokemon.module.css';
 
 const DEADZONE = 150; // px — how close before it sits back down
 const EASE = 0.005; // how quickly it catches up to the cursor — small, so it's a stroll
 const MAX_STEP = 1.6; // px per frame cap, keeps the stroll slow even on big cursor jumps
 const REACT_DELAY = 1500; // ms — how long the cursor has to stay away before it gets up
-const SLEEP_DELAY = 5000; // ms — how long it sits still before dozing off
+const SLEEP_DELAY = 5000; // ms — how long it sits still before dozing off (light sleep)
+const DEEP_SLEEP_DELAY = 8000; // ms — how much longer in light sleep before it's out cold
 const WALK_FRAME_INTERVAL = 140; // ms per run-cycle frame
 const ROAR_FRAME_INTERVAL = 150; // ms per roar frame
 const ROAR_DURATION = ROAR_FRAME_INTERVAL * 4; // one pass through the 4 roar frames
@@ -46,7 +47,7 @@ export default function CursorPokemon() {
   const [direction, setDirection] = useState('down');
   const [pose, setPose] = useState('sit');
   const [frameIndex, setFrameIndex] = useState(0);
-  const [sleepFrame, setSleepFrame] = useState(null);
+  const [sleepStage, setSleepStage] = useState(1);
 
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -65,7 +66,6 @@ export default function CursorPokemon() {
     let sittingSince = performance.now();
     let lastFrameAt = 0;
     let facingMirror = false;
-    let wasAsleep = false;
     let roaring = false;
     let roarEndAt = 0;
     let raf;
@@ -80,7 +80,6 @@ export default function CursorPokemon() {
     const onClick = () => {
       if (roaring) return; // ignore re-clicks mid-animation
       roaring = true;
-      wasAsleep = false; // a click "wakes" it either way
       roarEndAt = performance.now() + ROAR_DURATION;
       lastFrameAt = performance.now();
       setFrameIndex(0);
@@ -102,6 +101,7 @@ export default function CursorPokemon() {
             setPose('walk');
           } else {
             sittingSince = now; // interacting with it resets the doze-off clock
+            setSleepStage(1);
             setPose('sit');
           }
         }
@@ -126,7 +126,6 @@ export default function CursorPokemon() {
             if (now - awaySince >= REACT_DELAY) {
               walking = true;
               awaySince = null;
-              wasAsleep = false;
               target.x = framed.x;
               target.y = framed.y;
               setFrameIndex(0);
@@ -161,19 +160,16 @@ export default function CursorPokemon() {
           walking = false;
           sittingSince = now;
           facingMirror = false;
-          wasAsleep = false;
+          setSleepStage(1);
           setFrameIndex(0);
           setPose('sit');
         }
       } else if (hasMoved) {
-        // Sitting still: doze off after a long enough stretch of quiet.
-        // Picks one of the sleeping poses at random the moment it drifts
-        // off, rather than cycling between them.
-        const asleep = now - sittingSince >= SLEEP_DELAY;
-        if (asleep && !wasAsleep) {
-          wasAsleep = true;
-          setSleepFrame(pickSleepFrame());
-        }
+        // Sitting still: doze into a light sleep, then drift into a deeper
+        // one if left alone even longer.
+        const elapsed = now - sittingSince;
+        const asleep = elapsed >= SLEEP_DELAY;
+        if (asleep) setSleepStage(elapsed >= SLEEP_DELAY + DEEP_SLEEP_DELAY ? 2 : 1);
         setPose((current) => {
           if (current === 'walk') return current;
           return asleep ? 'sleep' : 'sit';
@@ -199,7 +195,7 @@ export default function CursorPokemon() {
 
   let frame;
   if (pose === 'sleep') {
-    frame = sleepFrame;
+    frame = sleepFrameForStage(sleepStage);
   } else if (pose === 'roar') {
     const frames = roarFrames();
     frame = frames[frameIndex % frames.length];
