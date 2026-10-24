@@ -5,92 +5,32 @@
     z-index: 10050;
     pointer-events: none;
     will-change: transform;
-    filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.35));
 }
 
-.body {
-    fill: #f7d02c;
-    stroke: #2b2210;
-    stroke-width: 1.2;
+.frameBox {
+    width: 50px;
+    height: 38px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    /* Only the sprite itself is clickable — the rest of this fixed overlay
+       stays click-through via .critter's pointer-events: none. */
+    pointer-events: auto;
+    cursor: pointer;
 }
 
-.earTip {
-    fill: #2b2210;
+.frameImg {
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.35));
+    user-select: none;
 }
 
-.cheek {
-    fill: #e3350d;
-    opacity: 0.85;
-}
-
-.eye {
-    fill: #1a1512;
-}
-
-.tail {
-    fill: #f7d02c;
-    stroke: #2b2210;
-    stroke-width: 1.2;
-    stroke-linejoin: round;
-    transform-box: fill-box;
-    transform-origin: 100% 60%;
-}
-
-.leg rect {
-    fill: #d9a91f;
-    stroke: #2b2210;
-    stroke-width: 1.1;
-}
-
-.leg {
-    transform-box: fill-box;
-    transform-origin: 50% 0%;
-}
-
-/* Sitting: settled in place, legs tucked under, slow breathing */
-.sitting .legBack {
-    transform: rotate(-28deg);
-}
-
-.sitting .legFront {
-    transform: rotate(28deg);
-}
-
-.sitting .body {
-    animation: breathe 3.2s ease-in-out infinite;
-    transform-box: fill-box;
-    transform-origin: 50% 100%;
-}
-
-.sitting .tail {
-    animation: tailIdle 3.2s ease-in-out infinite;
-}
-
-@keyframes breathe {
-    0%, 100% { transform: scaleY(1); }
-    50% { transform: scaleY(1.025); }
-}
-
-@keyframes tailIdle {
-    0%, 100% { transform: rotate(-4deg); }
-    50% { transform: rotate(4deg); }
-}
-
-/* Walking: a steady trot toward the cursor */
-.walking svg {
-    animation: walkBob 1s ease-in-out infinite;
-}
-
-.walking .tail {
-    animation: tailSway 1s ease-in-out infinite;
-}
-
-.walking .legBack {
-    animation: legSwing 1s ease-in-out infinite;
-}
-
-.walking .legFront {
-    animation: legSwing 1s ease-in-out infinite reverse;
+/* Walking: a light bounce in step with the run cycle */
+.critter[data-pose='walk'] .frameImg {
+    animation: walkBob 0.26s ease-in-out infinite;
 }
 
 @keyframes walkBob {
@@ -98,14 +38,54 @@
     50% { transform: translateY(-2px); }
 }
 
-@keyframes tailSway {
-    0%, 100% { transform: rotate(-6deg); }
-    50% { transform: rotate(10deg); }
+/* Sitting: slow, settled breathing */
+.critter[data-pose='sit'] .frameImg {
+    animation: breathe 3.2s ease-in-out infinite;
 }
 
-@keyframes legSwing {
-    0%, 100% { transform: rotate(-18deg); }
-    50% { transform: rotate(18deg); }
+/* Sleeping: even slower breathing, plus a floating "Z" */
+.critter[data-pose='sleep'] .frameImg {
+    animation: breathe 4.5s ease-in-out infinite;
+}
+
+/* Clicked: a little excited pop through the cheer frames */
+.critter[data-pose='roar'] .frameImg {
+    animation: roarPop 0.3s ease-out infinite alternate;
+}
+
+@keyframes roarPop {
+    from { transform: scale(1); }
+    to { transform: scale(1.08) translateY(-1px); }
+}
+
+@keyframes breathe {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.04); }
+}
+
+.zzz {
+    position: absolute;
+    top: -9px;
+    left: 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 9px;
+    color: var(--text-muted, #8a8580);
+    animation: floatUp 2.6s ease-in infinite;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(4px) scale(0.8);
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-16px) scale(1.15);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
