@@ -7,6 +7,15 @@
     will-change: transform;
 }
 
+/* Touch devices skip the cursor-follow loop entirely (see the
+   isCoarsePointer check in CursorPokemon.jsx), so it just sits at this raw
+   CSS position with no transform applied — nudge it down out of the header. */
+@media (pointer: coarse) {
+    .critter {
+        top: 16px;
+    }
+}
+
 .frameBox {
     width: 50px;
     height: 38px;
