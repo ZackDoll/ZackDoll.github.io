@@ -7,7 +7,7 @@ import styles from './Projects.module.css';
 export default function Projects() {
   return (
     <section id="projects">
-      <SectionHeader number="04" title="Featured Projects" />
+      <SectionHeader number="03" title="Featured Projects" />
       <div className={styles.list}>
         {projects.map((project, i) => {
           // A caseStudyImage override swaps the cover image; caseStudyImageFit

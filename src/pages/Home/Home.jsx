@@ -24,8 +24,8 @@ export default function Home() {
       <Hero />
       <About />
       <Experience />
-      <Skills />
       <Projects />
+      <Skills />
       <Footer variant="home" />
     </>
   );

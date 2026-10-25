@@ -20,7 +20,7 @@ const SKILL_GROUPS = [
 export default function Skills() {
   return (
     <section id="skills">
-      <SectionHeader number="03" title="Skills & Technologies" />
+      <SectionHeader number="04" title="Skills & Technologies" />
       <div className={styles.skillsContainer}>
         {SKILL_GROUPS.map((group) => (
           <div className={styles.skillCategory} key={group.title}>
