@@ -1,72 +1,104 @@
-.bentoGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-md);
-    max-width: 960px;
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xl);
+    max-width: 1100px;
     margin: 0 auto;
 }
 
-.bentoCell {
-    display: flex;
-}
-
-.bentoItem {
-    flex: 1;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-lg);
-    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-    min-height: 260px;
-    box-shadow: var(--shadow-md);
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
     text-decoration: none;
     color: inherit;
 }
 
-.bentoItem:hover {
+.media {
+    position: relative;
+    order: 1;
+    display: block;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    background: var(--bg-card);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+/* A caseStudyImage override with 'contain' fit has its own aspect ratio
+   (Vynel's demo clip is a tall phone recording, 480x790) — instead of
+   cropping or padding it to the default 4:3 box, the box is resized to
+   match the image exactly, so it fills edge-to-edge with nothing left over. */
+.mediaMark {
+    aspect-ratio: 480 / 790;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+.content {
+    order: 2;
+}
+
+.row.reverse .media {
+    order: 2;
+}
+
+.row.reverse .content {
+    order: 1;
+}
+
+.row:hover .media {
     border-color: var(--border-hover);
-    transform: translateY(-2px);
     box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
 }
 
-.bentoIcon {
-    height: 48px;
-    display: flex;
-    align-items: center;
+.row:hover .media img {
+    transform: scale(1.04);
 }
 
-.bentoIcon img {
-    max-width: 48px;
-    max-height: 48px;
-    object-fit: contain;
+.index {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1rem;
+    color: var(--border);
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-xs);
 }
 
-.bentoTitle {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.25rem;
+.title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1.75rem;
     font-weight: 400;
     color: var(--text);
+    margin-bottom: var(--space-sm);
 }
 
-.bentoDescription {
-    font-size: 0.9rem;
+.description {
+    font-size: 1rem;
     color: var(--text-muted);
-    line-height: 1.6;
-    flex-grow: 1;
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
 }
 
-.bentoTags {
+.tags {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-xs);
-    margin-top: auto;
+    margin-bottom: var(--space-md);
 }
 
-.bentoTag {
+.tag {
     background: transparent;
     border: 1px solid var(--border);
     color: var(--text-muted);
@@ -76,8 +108,39 @@
     font-weight: 500;
 }
 
-@media (max-width: 1024px) {
-    .bentoGrid {
+.link {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+.row:hover .link {
+    color: var(--text);
+}
+
+@media (max-width: 900px) {
+    .list {
+        gap: var(--space-2xl);
+    }
+
+    .row,
+    .row.reverse {
         grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .media,
+    .row.reverse .media {
+        order: 1;
+    }
+
+    .content,
+    .row.reverse .content {
+        order: 2;
+    }
+
+    .title {
+        font-size: 1.5rem;
     }
 }
