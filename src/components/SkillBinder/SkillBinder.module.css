@@ -1,0 +1,378 @@
+/* A dark collector's binder, ported from the binder_artifact.html mockup.
+   Deliberately keeps its own palette and type pairing (Outfit/Space Mono)
+   rather than the rest of the site's DM Serif Display/DM Sans + warm-gold
+   system — this section is meant to read as a distinct, playful layer,
+   the same way the Mudkip cursor pet is. */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+.binderWrap {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --rail: #10151c;
+    --line: #262d37;
+    --fg: #e8edf2;
+    --muted: #a3aebb;
+    --accent: #5eead4;
+    --ink: #14161b;
+    --paper: #f4f6f9;
+    --core-paper: #fff6d6;
+    --back: #1e2430;
+    --exp: #6f68b5;
+    --foil: linear-gradient(135deg, #fde68a 0%, #f9a8d4 35%, #93c5fd 65%, #86efac 100%);
+    --font-display: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-mono: 'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    color-scheme: dark;
+    font-family: var(--font-display);
+    /* Full-bleed breakout — spans the viewport regardless of the section's
+       own side padding or any ancestor max-width. body has overflow-x:
+       hidden sitewide, which also absorbs the vw/scrollbar rounding this
+       technique can introduce. */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.binder {
+    display: flex;
+    align-items: stretch;
+    background: var(--panel);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.spine {
+    flex: 0 0 56px;
+    background: var(--rail);
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 40px 0;
+}
+
+.ring {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--bg);
+    box-shadow: inset 0 0 0 3px #5c6675;
+}
+
+.page {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 700px;
+    box-sizing: border-box;
+    padding: 32px clamp(16px, 4vw, 64px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    gap: 20px;
+}
+
+.page.closed {
+    height: 640px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.pocket {
+    flex: 0 0 min(216px, 100%);
+    aspect-ratio: 216 / 300;
+    box-sizing: border-box;
+    padding: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.wrap {
+    width: 100%;
+    height: 100%;
+    animation: deal 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+    animation-delay: calc(var(--i) * 90ms);
+}
+
+@keyframes deal {
+    from {
+        opacity: 0;
+        transform: translateY(-140px) rotate(-14deg) scale(0.7);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.cardBtn {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    perspective: 900px;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    border-radius: 12px;
+}
+
+.cardBtn:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.card {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: rotateX(var(--rx, 0deg)) rotateY(calc(var(--ry, 0deg) + var(--flip, 0deg))) scale(var(--s, 1));
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cardBtn.flipped .card {
+    --flip: 180deg;
+}
+
+.cardBtn.hot .card {
+    --s: 1.04;
+}
+
+.face {
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 12px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.front {
+    background: var(--paper);
+    color: var(--ink);
+    border: 3px solid var(--ink);
+}
+
+.core .front {
+    background: var(--core-paper);
+}
+
+.exploring .front {
+    border: 3px dashed var(--exp);
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: 800;
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+
+/* Front only: a long name never wraps to a second line (which only ever
+   looked worse) — it stays on one line and truncates with an ellipsis if
+   it still doesn't fit next to the type pill. */
+.frontName {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.type {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 999px;
+    padding: 3px 8px;
+    white-space: nowrap;
+}
+
+.art {
+    flex: 1;
+    border: 3px solid var(--ink);
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    font-size: 60px;
+    font-weight: 800;
+    background: var(--tint);
+}
+
+.core .art {
+    background: var(--foil);
+}
+
+.meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+}
+
+.shine {
+    position: absolute;
+    inset: 0;
+    border-radius: 9px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    background-image: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 55%);
+}
+
+.core .shine {
+    background-image:
+        radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 55%),
+        linear-gradient(115deg, rgba(255, 255, 255, 0) 30%, rgba(255, 120, 200, 0.3) 45%, rgba(120, 200, 255, 0.3) 55%, rgba(255, 255, 255, 0) 70%);
+    background-size: 100% 100%, 250% 100%;
+    background-position: 0 0, var(--gx, 50%) 0;
+}
+
+.cardBtn.hot .shine {
+    opacity: 1;
+}
+
+.back {
+    transform: rotateY(180deg);
+    background: var(--back);
+    color: var(--fg);
+    border: 3px solid var(--accent);
+    justify-content: space-between;
+}
+
+.exploring .back {
+    border: 3px dashed var(--exp);
+}
+
+.back .name {
+    color: var(--accent);
+}
+
+.blurb {
+    font-size: 17px;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.back .meta {
+    color: var(--muted);
+}
+
+.scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: rgba(13, 17, 23, 0.82);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pack {
+    width: 230px;
+    height: 330px;
+    box-sizing: border-box;
+    padding: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background: linear-gradient(160deg, #fde68a 0%, #f9a8d4 30%, #93c5fd 62%, #86efac 100%);
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    font-family: var(--font-display);
+    animation: wobble 3s ease-in-out infinite;
+}
+
+@keyframes wobble {
+    0%, 100% {
+        transform: rotate(-2deg);
+    }
+    50% {
+        transform: rotate(2deg);
+    }
+}
+
+.crimp {
+    display: block;
+    height: 22px;
+    background: repeating-linear-gradient(90deg, rgba(20, 22, 27, 0.3) 0 3px, transparent 3px 7px);
+}
+
+.packLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.packLabel b {
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+}
+
+.packLabel span {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+    .spine {
+        flex-basis: 28px;
+        padding: 24px 0;
+    }
+
+    .ring {
+        width: 14px;
+        height: 14px;
+        box-shadow: inset 0 0 0 2px #5c6675;
+    }
+
+    .page {
+        padding: 20px 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pack {
+        animation: none;
+    }
+
+    .card {
+        transition: none;
+    }
+
+    .wrap {
+        animation: none;
+    }
+}
