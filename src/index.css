@@ -119,15 +119,13 @@ select:focus-visible,
     }
 }
 
-html {
-    scroll-behavior: smooth;
-}
+/* Scrolling itself is smoothed by Lenis (see SmoothScroll.jsx), which skips
+   initializing under prefers-reduced-motion — leaving scroll-behavior at its
+   default here means that fallback is native (and instant), not fighting
+   Lenis's own easing on the one hand or forcing a second smoothing pass on
+   the other. */
 
 @media (prefers-reduced-motion: reduce) {
-    html {
-        scroll-behavior: auto;
-    }
-
     *,
     *::before,
     *::after {

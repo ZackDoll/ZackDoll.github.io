@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { trackEvent } from '../utils/gtag';
+import { useLenisScrollTo } from './SmoothScroll';
 import styles from './Nav.module.css';
 
 const SECTIONS = [
@@ -18,6 +19,7 @@ export default function Nav() {
   const [indicator, setIndicator] = useState(null);
   const linksRef = useRef({});
   const listRef = useRef(null);
+  const scrollTo = useLenisScrollTo();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -68,7 +70,7 @@ export default function Nav() {
       e.preventDefault();
       const target = document.getElementById(id);
       if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
+        scrollTo(target);
         setActive(id);
       }
     } else {

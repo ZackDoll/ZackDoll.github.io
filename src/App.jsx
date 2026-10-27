@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Nav from './components/Nav';
 import CursorPokemon from './components/CursorPokemon/CursorPokemon';
+import SmoothScroll from './components/SmoothScroll';
 import Home from './pages/Home/Home';
 import ProjectDetail from './pages/ProjectDetail/ProjectDetail';
 
@@ -14,7 +15,7 @@ export default function App() {
   }, [pathname, hash]);
 
   return (
-    <>
+    <SmoothScroll>
       <Nav />
       <CursorPokemon />
       <div key={pathname} className="page">
@@ -24,6 +25,6 @@ export default function App() {
           <Route path="*" element={<Home />} />
         </Routes>
       </div>
-    </>
+    </SmoothScroll>
   );
 }
